@@ -1,19 +1,11 @@
 
-public class Pion {
-	private int ligne;
-	private char colonne;
+public class Pion extends Piece{
 	
-	public Pion (int ligne, char colonne) {
-		this.ligne = ligne;
-		this.colonne = colonne;
+	public Pion(int x, int y, String couleur) {
+		super(x, y, couleur);
 	}
 	
-	public int getLigne () {
-		return this.ligne;
+	public String getNom() {
+		return "pion";
 	}
-	
-	public char getColonne () {
-		return this.colonne;
-	}
-
 }
