@@ -1,6 +1,7 @@
 package in404.JeuEchec;
 
 public abstract class Piece {
+
     /**
      * Redefinition de méthode toString
      * @return le nom de chaque sous classe soit le Fou,Cavalier,Roi,Reine,Tour.

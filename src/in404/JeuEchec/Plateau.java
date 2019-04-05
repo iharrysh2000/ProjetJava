@@ -18,9 +18,9 @@ public class Plateau {
      * @return plateau généré
      */
     public void InitPlateau(Plateau plateau){
-        Piece tour1 = new Tour(new Point(0, 0), "Noir", "Tour1");
-        Piece cavalier1 = new Cavalier(new Point(1,0),"Noir","Cavalier1");
-        Piece fou1 = new Fou(new Point(2, 0), "Noir", "Fou1");
+        Piece tour1 = new Tour(new Point(0, 7), "Noir", "Tour1");
+        Piece cavalier1 = new Cavalier(new Point(1,7),"Noir","Cavalier1");
+        Piece fou1 = new Fou(new Point(2, 7), "Noir", "Fou1");
         Piece reine1 = new Reine(new Point(3,0),"Noir","Reine1");
         Piece roi1 = new Roi(new Point(4,0),"Noir","Roi1");
         Piece fou2 = new Fou(new Point(5,0),"Noir","Fou1");
@@ -71,12 +71,21 @@ public class Plateau {
         return this.plateau[x][y];
     }
 
+    /**
+     * Permet de determiner
+     * @param pointPosition
+     * @param pointTarget
+     * @return
+     */
     public boolean movePiece(Point pointPosition,Point pointTarget){
         Piece p = this.plateau[pointPosition.getX()][pointPosition.getY()];
-        if(p.movePossible(pointPosition,pointTarget) == true && this.plateau[pointTarget.getX()][pointTarget.getY()] == null){
+
+        if(p.movePossible(pointPosition,pointTarget) && this.plateau[pointTarget.getX()][pointTarget.getY()] == null){
+
             this.plateau[pointPosition.getX()][pointPosition.getY()] = null;
             this.plateau[pointTarget.getX()][pointTarget.getY()] = p;
             return true;
+
         }
         return false;
     }

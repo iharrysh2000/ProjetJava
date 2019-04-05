@@ -31,20 +31,20 @@ enum Main {
             int xTarget;
             int yTarget;
             do {
-                    Scanner sc = new Scanner(System.in);
-                    System.out.println("Veuillez saisir les coordonnées position:");
-                    String str = sc.nextLine();
-                    x = str.charAt(0);
-                    y = str.charAt(1);
-                    System.out.println(p1.getPiece(x - 'a', y - '1'));
-                } while (p1.getPiece(x - 'a', y - '1') == null);
+                Scanner sc = new Scanner(System.in);
+                System.out.println("Veuillez saisir les coordonnées position:");
+                String str = sc.nextLine();
+                x = str.charAt(0);
+                y = str.charAt(1);
+                System.out.println(p1.getPiece(x - 'a', y - '1'));
+            } while (p1.getPiece(x - 'a', y - '1') == null);
             do {
                 System.out.println("Veuillez saisir les coordonnées cible:");
                 Scanner sc = new Scanner(System.in);
                 String str = sc.nextLine();
                 xTarget = str.charAt(0);
                 yTarget = str.charAt(1);
-            }while (p1.movePiece(new Point(x-'a',y-'1'),new Point(xTarget - 'a', yTarget - '1')) != true);
+            } while (p1.movePiece(new Point(x-'a',y-'1'),new Point(xTarget - 'a', yTarget - '1')) != true);
             p1.Afficher();
         }
     }
