@@ -9,21 +9,21 @@ public class Main {
 		p.afficher();
 		
 		System.out.println("Tour 1:");
-		p.movePiece(7, 7, 0, 0);
+		p.movePiece(4, 1, 4, 3);
 		p.afficher();
 		
 		System.out.println("Tour 2:");
-		p.movePiece(0, 7, 7, 0);
+		p.movePiece(4, 6, 4, 4);
 		p.afficher();
 		
 		System.out.println("Tour 3:");
-		p.movePiece(4, 0, 3, 1);
+		p.movePiece(3, 0, 7, 4);
 		p.afficher();
 		
 		System.out.println("Tour 4:");
-		p.movePiece(4, 7, 4, 0);
+		p.movePiece(7, 4, 5, 6);
 		p.afficher();
-	
+		
 	}
 
 }

@@ -3,52 +3,168 @@ package projetJava;
 public class Plateau {
 	private Case[][] plateau;
 	
+	// Initialise le plateau
 	public Plateau () {
 		this.plateau = new Case[8][8];
-		
-		for (int i = 7; i >=0; i--)
-		{
-            for (int j = 0; j < 8; j++)
-            {
-            	if( j == 0 )
-                {
-            		if(i == 4)
-                	{
-                		Case c = new Case(new Reine (0), i%2);
+		Case c;
+		int coul = 0;
+
+			for (int i = 0; i < 8; i++)
+			{
+	            for (int j = 0; j < 2; j++)
+	            {
+	            	if( j == 1 )
+	            	{
+	            		c = new Case(new Pion (coul), (i+j)%2);
 	                	this.plateau[i][j] = c;
-                	}
-            		else
-            		{
-	            		Case c = new Case(new Tour (0), i%2);
-	       				this.plateau[i][j] = c;
-            		}
-                }
-                else if ( j == 7 )
-                {
-                	if(i == 4)
-                	{
-                		Case c = new Case(new Reine (1), i%2);
+	            	}
+	            	else if( i == 0 || i == 7)
+	            	{
+	            		c = new Case(new Tour (coul), (i+j)%2);
 	                	this.plateau[i][j] = c;
-                	}
-                	else
-                	{
-	                	Case c = new Case(new Fou (1), i%2);
+	            	}
+	            	else if( i == 1 || i == 6)
+	            	{
+	            		c = new Case(new Cavalier (coul), (i+j)%2);
 	                	this.plateau[i][j] = c;
-                	}
-                }
-                else
-                {
-                	Case c = new Case(null, i%2);
+	            	}
+	            	else if( i == 2 || i == 5)
+	            	{
+	            		c = new Case(new Fou (coul), (i+j)%2);
+	                	this.plateau[i][j] = c;
+	            	}
+	            	else if( i == 4)
+	            	{
+	            		c = new Case(new Roi (coul), (i+j)%2);
+	                	this.plateau[i][j] = c;
+	            	}
+	            	else if( i == 3)
+	            	{
+	            		c = new Case(new Reine (coul), (i+j)%2);
+	                	this.plateau[i][j] = c;
+	            	}
+	            	else
+	            	{
+	            		c = new Case(null, (i+j)%2);
+	                	this.plateau[i][j] = c;
+	            	}
+	            }
+			}
+			
+			coul = 1;
+			
+			for (int i = 0; i < 8; i++)
+			{
+	            for (int j = 6; j < 8; j++)
+	            {
+	            	if( j == 6 )
+	            	{
+	            		c = new Case(new Pion (coul), (i+j)%2);
+	                	this.plateau[i][j] = c;
+	            	}
+	            	else if( i == 0 || i == 7)
+	            	{
+	            		c = new Case(new Tour (coul), (i+j)%2);
+	                	this.plateau[i][j] = c;
+	            	}
+	            	else if( i == 1 || i == 6)
+	            	{
+	            		c = new Case(new Cavalier (coul), (i+j)%2);
+	                	this.plateau[i][j] = c;
+	            	}
+	            	else if( i == 2 || i == 5)
+	            	{
+	            		c = new Case(new Fou (coul), (i+j)%2);
+	                	this.plateau[i][j] = c;
+	            	}
+	            	else if( i == 4)
+	            	{
+	            		c = new Case(new Roi (coul), (i+j)%2);
+	                	this.plateau[i][j] = c;
+	            	}
+	            	else if( i == 3)
+	            	{
+	            		c = new Case(new Reine (coul), (i+j)%2);
+	                	this.plateau[i][j] = c;
+	            	}
+	            	else
+	            	{
+	            		c = new Case(null, (i+j)%2);
+	                	this.plateau[i][j] = c;
+	            	}
+	            }
+			}
+			
+			for (int i = 0; i < 8; i++)
+			{
+	            for (int j = 2; j < 6; j++)
+	            {
+	            	c = new Case(null, (i+j)%2);
                 	this.plateau[i][j] = c;
-                }
-            }
+	            }
+			}
+			
+	}
+	
+	public void movePion  (int depX, int depY, int finX, int finY) {
+		int dx = finX - depX;
+		int dy = finY - depY;
+		
+		Case c = this.plateau[depX][depY];
+		Case dest = this.plateau[finX][finY];
+
+		if(dx == 0)
+		{
+			if( this.moveLigne(depX, depY, finX, finY) )
+			{
+				// Test si la case destination n'a pas de piece
+				if( dest.getPiece() == null )
+				{
+					dest.changePiece(c.getPiece());
+					c.changePiece(null);
+				}
+			}
+		}
+		else if ( (dx == -1 || dx == 1) && dy == -1)
+		{
+			if ( this.moveDiag(depX, depY, finX, finY) )
+			{
+				if( dest.getPiece() != null && c.getPiece().getCoul() != dest.getPiece().getCoul() )
+				{
+					dest.changePiece(c.getPiece());
+					c.changePiece(null);
+				}
+			}
+		}
+		
+		// Promotion des pions a faire 
+		if(dest.getPiece().getClass() == Pion.class && (finY == 0 || finY == 7) )
+		{
+			dest.changePiece(new Reine(dest.getPiece().getCoul()));
+		}
+	}
+	
+	public void moveCavalier (int depX, int depY, int finX, int finY) {
+		
+		Case c = this.plateau[depX][depY];
+		Case dest = this.plateau[finX][finY];
+		
+		if( dest.getPiece() == null)
+		{
+			dest.changePiece(c.getPiece());
+			c.changePiece(null);
+		}
+		else if( c.getPiece().getCoul() != dest.getPiece().getCoul() )
+		{
+			dest.changePiece(c.getPiece());
+			c.changePiece(null);
 		}
 	}
 	
 	// Déplace une piece
 	public void movePiece (int depX, int depY, int finX, int finY) {
-		int dx = depX - finX;
-		int dy = depY - finY;
+		int dx = finX - depX;
+		int dy = finY - depY;
 		
 		Case c = this.plateau[depX][depY];
 		Case dest = this.plateau[finX][finY];
@@ -58,41 +174,52 @@ public class Plateau {
 				&& this.inMap(depX, depY, finX, finY)
 				&& !( dx == 0 && dy == 0))
 		{
-			 if(dx == 0 || dy == 0)
-			 {
-				 if( this.moveLigne(depX, depY, finX, finY) )
-				 {
-					 // Test si la case destination n'a pas de piece
-					 if( dest.getPiece() == null )
-					 {
-						 dest.changePiece(c.getPiece());
-						 c.changePiece(null);
-					 }
-					 // Test si la couleur de la piece destination est différente de la piece de départ
-					 else if ( c.getPiece().getCoul() != dest.getPiece().getCoul() )
-					 {
-						 dest.changePiece(c.getPiece());
-						 c.changePiece(null);
-					 }
-				 }
-			 }
-			 if(dx == dy || dx == -dy)
-			 {
+			// Traite le cas du pion
+			if(c.getPiece().getClass() == Pion.class)
+			{
+				this.movePion(depX, depY, finX, finY);
+			}
+			// Traite le cas du cavalier
+			else if(c.getPiece().getClass() == Cavalier.class)
+			{
+				this.moveCavalier(depX, depY, finX, finY);
+			}
+			// traite les autres cas
+			else if(dx == 0 || dy == 0)
+			{
+				if( this.moveLigne(depX, depY, finX, finY) )
+				{
+					// Test si la case destination n'a pas de piece
+					if( dest.getPiece() == null )
+					{
+						dest.changePiece(c.getPiece());
+						c.changePiece(null);
+					}
+					// Test si la couleur de la piece destination est différente de la piece de départ
+					else if ( c.getPiece().getCoul() != dest.getPiece().getCoul() )
+					{
+						dest.changePiece(c.getPiece());
+						c.changePiece(null);
+					}
+				}
+			}
+			else if(dx == dy || dx == -dy)
+			{
 				if ( this.moveDiag(depX, depY, finX, finY) )
 				{
 					if( dest.getPiece() == null )
-					 {
-						 dest.changePiece(c.getPiece());
-						 c.changePiece(null);
-					 }
-					 // Test si la couleur de la piece destination est différente de la piece de départ
-					 else if ( c.getPiece().getCoul() != dest.getPiece().getCoul() )
-					 {
-						 dest.changePiece(c.getPiece());
-						 c.changePiece(null);
-					 }
+					{
+						dest.changePiece(c.getPiece());
+						c.changePiece(null);
+					}
+					// Test si la couleur de la piece destination est différente de la piece de départ
+					else if ( c.getPiece().getCoul() != dest.getPiece().getCoul() )
+					{
+						dest.changePiece(c.getPiece());
+						c.changePiece(null);
+					}
 				}
-			 }
+			}
 		}
 	}
 	
@@ -117,9 +244,10 @@ public class Plateau {
 		Case c;
 		if(dx == dy)
 		{
+			System.out.println(dx);
 			if(dx > 0)
 			{
-				for(int i = depY + 1; i < finY; i++)
+				for(int i = depX + 1; i < finX; i++)
 				{
 					c = this.plateau[i][i];
 					if(c.getPiece() != null)
@@ -131,7 +259,7 @@ public class Plateau {
 			}
 			else
 			{
-				for(int i = depY - 1; i > finY; i--)
+				for(int i = depX - 1; i > finX; i--)
 				{
 					c = this.plateau[i][i];
 					if(c.getPiece() != null)
@@ -142,8 +270,7 @@ public class Plateau {
 				return true;
 			}
 		}
-		
-		if(dx == -dy)
+		else if(dx == -dy)
 		{
 			if(dx > 0)
 			{
@@ -212,12 +339,12 @@ public class Plateau {
 	// Affichage
 	
 	public void afficher(){
-        for (int i = 7; i >=0; i--){
-            for (int j = 0; j < 8; j++){
-                if(this.plateau[j][i].getPiece() != null)
-                    System.out.print("[" + this.plateau[j][i].getPiece() + "]");
+        for (int j = 7; j >=0; j--){
+            for (int i = 0; i < 8; i++){
+                if(this.plateau[i][j].getPiece() != null)
+                    System.out.print("[" + this.plateau[i][j].getPiece() + "]");
                 else
-                    System.out.print("[vd]");
+                    System.out.print("[  ]");
             }
             System.out.println(" ");
         }
