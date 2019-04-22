@@ -350,5 +350,9 @@ public class Plateau {
         }
         System.out.println(" ");
     }
-	
+
+	public Piece getPiece(int x,int y)
+	{
+		return plateau[x][y].getPiece();
+	}
 }
