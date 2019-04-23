@@ -52,6 +52,7 @@ public class IO {
 		        String str = this.sc.nextLine();
 		        
 		        if(str.equals("undo")) {
+				if(this.undo.getPile_point_cible().isEmpty()) return; // On verifie pour une pile
 		        	Point point_cible = this.undo.depile_point_cible();
 		        	Point point_depart = this.undo.depile_point_depart();
 		        	plateau.retour_arriere(point_cible, point_depart);
