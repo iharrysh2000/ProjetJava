@@ -27,4 +27,4 @@ pièce et verifie si les déplacements sont valides pour les effectuer afin d'af
 (attention, il ne s'agit pas de Xboard mais simplement de la combinaison de Systeme.out.print() pour simuler l'apparence du plateau et des pièces).
 
 La classe IO est présente pour pouvoir prendre en entrée les commandes du joueur. <br />
-Et justement, la classe Joueur vient déterminer si c'est au tour de l'humain de jouer. Dans le cas contraire, l'ordinateur effectue une action au hasard.
+Et justement, la classe Joueur que j'ai pas encore fait vient déterminer si c'est au tour de l'humain de jouer. Dans le cas contraire, l'ordinateur effectue une action au hasard.
