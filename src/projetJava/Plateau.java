@@ -401,4 +401,10 @@ public class Plateau {
 		return this.plateau[x][y].getPiece();
 	}
 	
+	public void retour_arriere(Point point_cible,Point point_depart) {
+		Piece piece = this.plateau[point_cible.getX()][point_cible.getY()].getPiece();
+		this.plateau[point_cible.getX()][point_cible.getY()].changePiece(null);
+		this.plateau[point_depart.getX()][point_depart.getY()].changePiece(piece);;
+	}
+	
 }

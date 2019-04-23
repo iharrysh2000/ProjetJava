@@ -9,7 +9,9 @@ public class IO {
 		private int x_depart;		// ** coordonnées de départ x ** //
 		private int y_depart;		// ** coordonnées de départ y ** //
 		private int x_cible;		// ** coordonnées cible x ** //
-		private int y_cible;		// ** coordonnées cible y ** //
+		public int y_cible;		// ** coordonnées cible y ** //
+		
+		private Undo undo;
 		
 		public IO () {
 			this.sc = new Scanner(System.in);
@@ -18,6 +20,7 @@ public class IO {
 			this.x_cible = -1;
 			this.y_depart = -1;
 			this.y_cible = -1;
+			this.undo = new Undo();
 		}
 		
 		/**
@@ -29,6 +32,7 @@ public class IO {
 	        while(true)
 	        {
 	        	this.entryPiece (plateau, tours%2);
+	        	System.out.println(">save piece:"  + this.undo.getPile_point_cible());
 	        	plateau.afficher(tours);
 	        	tours++;
 	        }
@@ -47,10 +51,17 @@ public class IO {
 		        System.out.println("\nVeuillez saisir les coordonnées :");
 		        String str = this.sc.nextLine();
 		        
+		        if(str.equals("undo")) {
+		        	Point point_cible = this.undo.depile_point_cible();
+		        	Point point_depart = this.undo.depile_point_depart();
+		        	plateau.retour_arriere(point_cible, point_depart);
+		        	return;
+		        }
+		        
 		        this.x_depart = str.charAt(0) - 'a';
 		        this.y_depart = str.charAt(1) - '1';
 		        this.x_cible = str.charAt(2) - 'a';
-		        this. y_cible = str.charAt(3) - '1';
+		        this.y_cible = str.charAt(3) - '1';
 		        
 		        coul_piece_depart = -1;
 		        
@@ -62,7 +73,7 @@ public class IO {
 		    } while ( !plateau.inMap(this.x_depart, this.y_depart, this.x_cible, this.y_cible)
 		    			|| coul_piece_depart != couleur
 		    			|| !plateau.movePiece(this.x_depart, this.y_depart, this.x_cible, this.y_cible) );
-		    
+		    this.undo.Enregistrer(new Point(x_depart,y_depart),new Point(x_cible,y_cible)); 
 		}
 		
 		/** Getteur du scanner pour le fermer
@@ -74,7 +85,7 @@ public class IO {
 		}
 		
 		
-		/* Gère la promotion des pion
+		/* Gère la promotion des pions
 		 * 
 		 */
 		public void promotion (Case dest) {
