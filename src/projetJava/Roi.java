@@ -2,7 +2,7 @@ package projetJava;
 
 public class Roi extends Piece{
 	
-	private final String nom = "r";
+	private final String nom = "R";
 
 	public Roi(int couleur) {
 		super(couleur);

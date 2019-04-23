@@ -2,7 +2,7 @@ package projetJava;
 
 public class Reine extends Piece {
 	
-	private final String nom = "R";
+	private final String nom = "D";
 
 	public Reine(int couleur) {
 		super(couleur);

@@ -1,5 +1,7 @@
 package projetJava;
 
+import java.util.Scanner;
+
 public class Plateau {
 	private Case[][] plateau;
 	
@@ -155,7 +157,26 @@ public class Plateau {
 		// Promotion des pions a faire 
 		if(dest.getPiece().getClass() == Pion.class && (finY == 0 || finY == 7) )
 		{
-			dest.changePiece(new Reine(dest.getPiece().getCoul()));
+			System.out.println("\nPromotion du pion :");
+			Scanner sc = new Scanner(System.in);
+			String str = sc.nextLine();
+			if(str.charAt(0) == 'C')
+			{
+				dest.changePiece(new Cavalier(dest.getPiece().getCoul()));
+			}
+			else if(str.charAt(0) == 'T')
+			{
+				dest.changePiece(new Tour(dest.getPiece().getCoul()));
+			}
+			else if(str.charAt(0) == 'F')
+			{
+				dest.changePiece(new Fou(dest.getPiece().getCoul()));
+			}
+			else
+			{
+				dest.changePiece(new Reine(dest.getPiece().getCoul()));
+			}
+			sc.close();
 		}
 	}
 	
