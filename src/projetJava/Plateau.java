@@ -1,12 +1,12 @@
 package projetJava;
 
-import java.util.Scanner;
-
 public class Plateau {
 	private Case[][] plateau;
+	private IO io;
 	
 	// Initialise le plateau
-	public Plateau () {
+	public Plateau (IO io) {
+		this.io = io;
 		this.plateau = new Case[8][8];
 		Case c;
 		int coul = 0;
@@ -115,6 +115,8 @@ public class Plateau {
 		
 		Case c = this.plateau[depX][depY];
 		Case dest = this.plateau[finX][finY];
+		
+		boolean bouge = false;
 
 		if(dx == 0)
 		{
@@ -125,6 +127,7 @@ public class Plateau {
 				{
 					dest.changePiece(c.getPiece());
 					c.changePiece(null);
+					bouge = true;
 				}
 			}
 		}
@@ -138,6 +141,7 @@ public class Plateau {
 					{
 						dest.changePiece(c.getPiece());
 						c.changePiece(null);
+						bouge = true;
 					}
 				}
 			}
@@ -149,14 +153,17 @@ public class Plateau {
 					{
 						dest.changePiece(c.getPiece());
 						c.changePiece(null);
+						bouge = true;
 					}
 				}
 			}
 		}
 		
 		// Promotion des pions a faire 
-		if(dest.getPiece().getClass() == Pion.class && (finY == 0 || finY == 7) )
+		if(bouge && (finY == 0 || finY == 7) )
 		{
+			io.promotion(dest);
+			/*
 			System.out.println("\nPromotion du pion :");
 			Scanner sc = new Scanner(System.in);
 			String str = sc.nextLine();
@@ -177,6 +184,7 @@ public class Plateau {
 				dest.changePiece(new Reine(dest.getPiece().getCoul()));
 			}
 			sc.close();
+			*/
 		}
 	}
 	

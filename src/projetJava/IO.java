@@ -71,4 +71,34 @@ public class IO {
 		  //}while (!(plateau.getPiece(this.x_depart, this.y_depart).movePiece(this.x_depart, this.y_depart, this.x_cible, this.y_cible)));
 		  plateau.movePiece(this.x_depart, this.y_depart, this.x_cible, this.y_cible);
 		}
+		
+		/** Getteur du scanner pour le fermer
+		 * 
+		 * @return scanner
+		 */
+		public Scanner getScanner () {
+			return this.sc;
+		}
+		
+		public void promotion (Case dest) {
+			
+			System.out.println("\nPromotion du pion :");
+			String str = this.sc.nextLine();
+			if(str.charAt(0) == 'C')
+			{
+				dest.changePiece(new Cavalier(dest.getPiece().getCoul()));
+			}
+			else if(str.charAt(0) == 'T')
+			{
+				dest.changePiece(new Tour(dest.getPiece().getCoul()));
+			}
+			else if(str.charAt(0) == 'F')
+			{
+				dest.changePiece(new Fou(dest.getPiece().getCoul()));
+			}
+			else
+			{
+				dest.changePiece(new Reine(dest.getPiece().getCoul()));
+			}
+		}
 }
