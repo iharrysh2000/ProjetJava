@@ -392,6 +392,10 @@ public class Plateau {
 	public void afficher(){
         for (int j = 7; j >=0; j--){
             for (int i = 0; i < 8; i++){
+            	if(i == 0)
+            	{
+            		System.out.print(j+1 + " ");
+            	}
                 if(this.plateau[i][j].getPiece() != null)
                     System.out.print("[" + this.plateau[i][j].getPiece() + "]");
                 else
@@ -399,6 +403,7 @@ public class Plateau {
             }
             System.out.println(" ");
         }
+        System.out.print("   a   b   c   d   e   f   g   h");
         System.out.println(" ");
     }
 	
