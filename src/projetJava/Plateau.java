@@ -2,11 +2,10 @@ package projetJava;
 
 public class Plateau {
 	private Case[][] plateau;
-	private IO io;
 	
 	// Initialise le plateau
-	public Plateau (IO io) {
-		this.io = io;
+	public Plateau () {
+
 		this.plateau = new Case[8][8];
 		Case c;
 		int coul = 0;
@@ -109,7 +108,7 @@ public class Plateau {
 	}
 	
 	// probleme
-	public void movePion  (int depX, int depY, int finX, int finY) {
+	public boolean movePion  (int depX, int depY, int finX, int finY) {
 		int dx = finX - depX;
 		int dy = finY - depY;
 		
@@ -162,34 +161,15 @@ public class Plateau {
 		// Promotion des pions a faire 
 		if(bouge && (finY == 0 || finY == 7) )
 		{
-			io.promotion(dest);
-			/*
-			System.out.println("\nPromotion du pion :");
-			Scanner sc = new Scanner(System.in);
-			String str = sc.nextLine();
-			if(str.charAt(0) == 'C')
-			{
-				dest.changePiece(new Cavalier(dest.getPiece().getCoul()));
-			}
-			else if(str.charAt(0) == 'T')
-			{
-				dest.changePiece(new Tour(dest.getPiece().getCoul()));
-			}
-			else if(str.charAt(0) == 'F')
-			{
-				dest.changePiece(new Fou(dest.getPiece().getCoul()));
-			}
-			else
-			{
-				dest.changePiece(new Reine(dest.getPiece().getCoul()));
-			}
-			sc.close();
-			*/
+			IO tmp = new IO();
+			tmp.promotion(dest);
 		}
+		
+		return bouge;
 	}
 	
 	// Traite le cas du cavalier
-	public void moveCavalier (int depX, int depY, int finX, int finY) {
+	public boolean moveCavalier (int depX, int depY, int finX, int finY) {
 		
 		Case c = this.plateau[depX][depY];
 		Case dest = this.plateau[finX][finY];
@@ -198,16 +178,19 @@ public class Plateau {
 		{
 			dest.changePiece(c.getPiece());
 			c.changePiece(null);
+			return true;
 		}
 		else if( c.getPiece().getCoul() != dest.getPiece().getCoul() )
 		{
 			dest.changePiece(c.getPiece());
 			c.changePiece(null);
+			return true;
 		}
+		return false;
 	}
 	
 	// Déplace une piece
-	public void movePiece (int depX, int depY, int finX, int finY) {
+	public boolean movePiece (int depX, int depY, int finX, int finY) {
 		int dx = finX - depX;
 		int dy = finY - depY;
 		
@@ -224,12 +207,12 @@ public class Plateau {
 			// Traite le cas du pion
 			if(c.getPiece().getClass() == Pion.class)
 			{
-				this.movePion(depX, depY, finX, finY);
+				return this.movePion(depX, depY, finX, finY);
 			}
 			// Traite le cas du cavalier
 			else if(c.getPiece().getClass() == Cavalier.class)
 			{
-				this.moveCavalier(depX, depY, finX, finY);
+				return this.moveCavalier(depX, depY, finX, finY);
 			}
 			// traite les autres cas
 			else if(dx == 0 || dy == 0)
@@ -241,12 +224,14 @@ public class Plateau {
 					{
 						dest.changePiece(c.getPiece());
 						c.changePiece(null);
+						return true;
 					}
 					// Test si la couleur de la piece destination est différente de la piece de départ
 					else if ( c.getPiece().getCoul() != dest.getPiece().getCoul() )
 					{
 						dest.changePiece(c.getPiece());
 						c.changePiece(null);
+						return true;
 					}
 				}
 			}
@@ -258,16 +243,19 @@ public class Plateau {
 					{
 						dest.changePiece(c.getPiece());
 						c.changePiece(null);
+						return true;
 					}
 					// Test si la couleur de la piece destination est différente de la piece de départ
 					else if ( c.getPiece().getCoul() != dest.getPiece().getCoul() )
 					{
 						dest.changePiece(c.getPiece());
 						c.changePiece(null);
+						return true;
 					}
 				}
 			}
 		}
+		return false;
 	}
 	
 	
@@ -389,7 +377,8 @@ public class Plateau {
 	
 	// Affichage
 	
-	public void afficher(){
+	public void afficher( int tours){
+		System.out.println("\nTours " + tours + " :\n");
         for (int j = 7; j >=0; j--){
             for (int i = 0; i < 8; i++){
             	if(i == 0)

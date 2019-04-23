@@ -5,10 +5,9 @@ public class Main {
 	public static void main(String[] args) {
 
 		IO io = new IO (); // TEMPORAIRE
-		Plateau p = new Plateau(io);
+		Plateau p = new Plateau();
 		
-		System.out.println("Tour 0:");
-		p.afficher();
+		p.afficher(0);
 		
 		io.lireClavier(p);
 		io.getScanner().close();
