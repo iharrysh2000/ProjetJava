@@ -106,6 +106,7 @@ public class Plateau {
 			
 	}
 	
+	// probleme
 	public void movePion  (int depX, int depY, int finX, int finY) {
 		int dx = finX - depX;
 		int dy = finY - depY;
@@ -125,14 +126,28 @@ public class Plateau {
 				}
 			}
 		}
-		else if ( (dx == -1 || dx == 1) && dy == -1)
+		else if (dx == -1 || dx == 1)
 		{
-			if ( this.moveDiag(depX, depY, finX, finY) )
+			if(dy == -1 && c.getPiece().getCoul() == 1)
 			{
-				if( dest.getPiece() != null && c.getPiece().getCoul() != dest.getPiece().getCoul() )
+				if ( this.moveDiag(depX, depY, finX, finY) )
 				{
-					dest.changePiece(c.getPiece());
-					c.changePiece(null);
+					if( dest.getPiece() != null && c.getPiece().getCoul() != dest.getPiece().getCoul() )
+					{
+						dest.changePiece(c.getPiece());
+						c.changePiece(null);
+					}
+				}
+			}
+			if(dy == 1 && c.getPiece().getCoul() == 0)
+			{
+				if ( this.moveDiag(depX, depY, finX, finY) )
+				{
+					if( dest.getPiece() != null && c.getPiece().getCoul() != dest.getPiece().getCoul() )
+					{
+						dest.changePiece(c.getPiece());
+						c.changePiece(null);
+					}
 				}
 			}
 		}
@@ -144,6 +159,7 @@ public class Plateau {
 		}
 	}
 	
+	// Traite le cas du cavalier
 	public void moveCavalier (int depX, int depY, int finX, int finY) {
 		
 		Case c = this.plateau[depX][depY];
@@ -169,6 +185,8 @@ public class Plateau {
 		Case c = this.plateau[depX][depY];
 		Case dest = this.plateau[finX][finY];
 		
+		// La condition test si il y a une piece, test si le mouvement de la piece est bon,
+		//test si toutes les coord sont dans la map, test si ce ne sont pas les même coord
 		if(c.getPiece() != null 
 				&& c.getPiece().movePiece(depX, depY, finX, finY)
 				&& this.inMap(depX, depY, finX, finY)
@@ -242,6 +260,7 @@ public class Plateau {
 		int dx = depX - finX;
 		int dy = depY - finY;
 		Case c;
+		// Test diagonale /
 		if(dx == dy)
 		{
 			System.out.println(dx);
@@ -270,6 +289,7 @@ public class Plateau {
 				return true;
 			}
 		}
+		// Test diagonale \
 		else if(dx == -dy)
 		{
 			if(dx > 0)
@@ -307,6 +327,7 @@ public class Plateau {
 		int dx = depX - finX;
 		int dy = depY - finY;
 		Case c;
+		// Test horizontale
 		if(dx == 0)
 		{
 			for(int i = depY + 1; i < finY; i++)
@@ -320,6 +341,7 @@ public class Plateau {
 			return true;
 		}
 		
+		// Test verticale
 		if(dy == 0)
 		{
 			for(int i = depX + 1; i < finX; i++)
@@ -351,6 +373,7 @@ public class Plateau {
         System.out.println(" ");
     }
 	
+	// Getteur de piece
 	public Piece getPiece (int x, int y) {
 		return this.plateau[x][y].getPiece();
 	}

@@ -10,6 +10,10 @@ public class Pion extends Piece {
 		this.move = false;
 	}
 	
+	public boolean getMove () {
+		return this.move;
+	}
+	
 	@Override
 	public String toString () {
 		return this.nom + this.getCoul();
@@ -30,7 +34,6 @@ public class Pion extends Piece {
 				}
 				else if(!this.move && (dy == 1 || dy == 2) )
 				{
-					this.move = true;
 					return true;
 				}
 				else
@@ -51,7 +54,6 @@ public class Pion extends Piece {
 				}
 				else if( !this.move && (dy == -1 || dy == -2) )
 				{
-					this.move = true;
 					return true;
 				}
 				else
