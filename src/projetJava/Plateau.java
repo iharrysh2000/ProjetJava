@@ -120,7 +120,7 @@ public class Plateau {
 
 		if(dx == 0)
 		{
-			if( this.moveLigne(depX, depY, finX, finY) )
+			if( this.testLigne(depX, depY, finX, finY) )
 			{
 				// Test si la case destination n'a pas de piece
 				if( dest.getPiece() == null )
@@ -134,7 +134,7 @@ public class Plateau {
 		{
 			if(dy == -1 && c.getPiece().getCoul() == 1)
 			{
-				if ( this.moveDiag(depX, depY, finX, finY) )
+				if ( this.testDiag(depX, depY, finX, finY) )
 				{
 					if( dest.getPiece() != null && c.getPiece().getCoul() != dest.getPiece().getCoul() )
 					{
@@ -145,7 +145,7 @@ public class Plateau {
 			}
 			if(dy == 1 && c.getPiece().getCoul() == 0)
 			{
-				if ( this.moveDiag(depX, depY, finX, finY) )
+				if ( this.testDiag(depX, depY, finX, finY) )
 				{
 					if( dest.getPiece() != null && c.getPiece().getCoul() != dest.getPiece().getCoul() )
 					{
@@ -155,7 +155,7 @@ public class Plateau {
 				}
 			}
 		}
-		
+
 		// Promotion des pions a faire 
 		if(bouge && (finY == 0 || finY == 7) )
 		{
@@ -213,7 +213,7 @@ public class Plateau {
 			// traite les autres cas
 			else if(dx == 0 || dy == 0)
 			{
-				if( this.moveLigne(depX, depY, finX, finY) )
+				if( this.testLigne(depX, depY, finX, finY) )
 				{
 					// Test si la case destination n'a pas de piece
 					if( dest.getPiece() == null )
@@ -231,7 +231,7 @@ public class Plateau {
 			}
 			else if(dx == dy || dx == -dy)
 			{
-				if ( this.moveDiag(depX, depY, finX, finY) )
+				if ( this.testDiag(depX, depY, finX, finY) )
 				{
 					if( dest.getPiece() == null )
 					{
@@ -265,37 +265,20 @@ public class Plateau {
 	
 	// Déplacement en diagonale
 	
-	public boolean moveDiag (int depX, int depY, int finX, int finY) {
-		int dx = depX - finX;
-		int dy = depY - finY;
-		Case c;
+	public boolean testDiag (int depX, int depY, int finX, int finY) {
+		int dx = finX - depX;
+		int dy = finY - depY;
+
 		// Test diagonale /
 		if(dx == dy)
 		{
-			System.out.println(dx);
 			if(dx > 0)
 			{
-				for(int i = depX + 1; i < finX; i++)
-				{
-					c = this.plateau[i][i];
-					if(c.getPiece() != null)
-					{
-						return false;
-					}
-				}
-				return true;
+				return this.testDiagHautDroite (depX, depY, finX, finY);
 			}
 			else
 			{
-				for(int i = depX - 1; i > finX; i--)
-				{
-					c = this.plateau[i][i];
-					if(c.getPiece() != null)
-					{
-						return false;
-					}
-				}
-				return true;
+				return this.testDiagBasGauche (depX, depY, finX, finY);
 			}
 		}
 		// Test diagonale \
@@ -303,67 +286,153 @@ public class Plateau {
 		{
 			if(dx > 0)
 			{
-				for(int i = depX + 1, j = depY - 1; i < finX; i++, j--)
-				{
-					c = this.plateau[i][j];
-					if(c.getPiece() != null)
-					{
-						return false;
-					}
-				}
-				return true;
+				return this.testDiagBasDroite (depX, depY, finX, finY);
 			}
 			else
 			{
-				for(int i = depX - 1, j = depY + 1; j < finY; i--, j++)
-				{
-					c = this.plateau[i][j];
-					if(c.getPiece() != null)
-					{
-						return false;
-					}
-				}
-				return true;
+				return this.testDiagHautGauche (depX, depY, finX, finY);
 			}
 		}
 		return false;
 	}
 	
+	public boolean testDiagHautDroite (int depX, int depY, int finX, int finY) {
+		Case c;
+		for(int i = depX + 1, j = depY + 1; i < finX && j < finY; i++, j++)
+		{
+			c = this.plateau[i][j];
+			if(c.getPiece() != null)
+			{
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	public boolean testDiagBasGauche (int depX, int depY, int finX, int finY) {
+		Case c;
+		for(int i = depX - 1, j = depY - 1; i > finX && j > finY; i--, j--)
+		{
+			c = this.plateau[i][j];
+			if(c.getPiece() != null)
+			{
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	public boolean testDiagHautGauche (int depX, int depY, int finX, int finY) {
+		Case c;
+		for(int i = depX - 1, j = depY + 1; i > finX && j < finY; i--, j++)
+		{
+			c = this.plateau[i][j];
+			if(c.getPiece() != null)
+			{
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	public boolean testDiagBasDroite (int depX, int depY, int finX, int finY) {
+		Case c;
+		for(int i = depX + 1, j = depY - 1; i < finX && j > finY; i++, j--)
+		{
+			c = this.plateau[i][j];
+			if(c.getPiece() != null)
+			{
+				return false;
+			}
+		}
+		return true;
+	}
+	
 	
 	// Déplacement en ligne
 	
-	public boolean moveLigne (int depX, int depY, int finX, int finY) {
-		int dx = depX - finX;
-		int dy = depY - finY;
-		Case c;
-		// Test horizontale
+	public boolean testLigne (int depX, int depY, int finX, int finY) {
+		int dx = finX - depX;
+		int dy = finY - depY;
+		
+		// Test Verticale
 		if(dx == 0)
 		{
-			for(int i = depY + 1; i < finY; i++)
+			if(dy > 0)
 			{
-				c = this.plateau[depX][i];
-				if(c.getPiece() != null)
-				{
-					return false;
-				}
+				return this.testVerticaleLigneHaut (depX, depY, finX, finY);
 			}
-			return true;
+			else
+			{
+				return this.testVerticaleLigneBas (depX, depY, finX, finY);
+			}
 		}
 		
-		// Test verticale
+		// Test Horizontale
 		if(dy == 0)
 		{
-			for(int i = depX + 1; i < finX; i++)
+			if(dx > 0)
 			{
-				c = this.plateau[i][depY];
-				if(c.getPiece() != null)
-				{
-					return false;
-				}
+				return this.testHorizontaleLigneDroite(depX, depY, finX, finY);
 			}
-			return true;
+			else
+			{
+				return this.testHorizontaleLigneGauche(depX, depY, finX, finY);
+			}
 		}
 		return false;
+	}
+	
+	public boolean testVerticaleLigneHaut (int depX, int depY, int finX, int finY) {
+		Case c;
+		for(int i = depY + 1; i < finY; i++)
+		{
+			c = this.plateau[depX][i];
+			if(c.getPiece() != null)
+			{
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	public boolean testVerticaleLigneBas (int depX, int depY, int finX, int finY) {
+		Case c;
+		for(int i = depY - 1; i > finY; i--)
+		{
+			c = this.plateau[depX][i];
+			if(c.getPiece() != null)
+			{
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	public boolean testHorizontaleLigneDroite (int depX, int depY, int finX, int finY) {
+		Case c;
+		for(int i = depX + 1; i < finX; i++)
+		{
+			c = this.plateau[i][depY];
+			if(c.getPiece() != null)
+			{
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	public boolean testHorizontaleLigneGauche (int depX, int depY, int finX, int finY) {
+		Case c;
+		for(int i = depX - 1; i > finX; i--)
+		{
+			c = this.plateau[i][depY];
+			if(c.getPiece() != null)
+			{
+				return false;
+			}
+		}
+		return true;
 	}
 	
 	

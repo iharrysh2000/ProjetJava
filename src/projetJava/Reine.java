@@ -23,7 +23,6 @@ public class Reine extends Piece {
 		{
 			return true;
 		}
-			
 		return false;
 	}
 
