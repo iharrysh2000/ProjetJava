@@ -48,16 +48,17 @@ public class Jeu {
         		else
         		{
         			// ia a faire
-        			noQuit = false;
-        			System.out.println( this.joueur.getJ2() );
-        		}
-        	}
-        	
-        	this.tours++;
-        	if( noQuit )
-        	{
-        		this.plateau.afficher(this.tours);
-        	}
-        }
-	}
+	        			noQuit = false;
+	        			System.out.println( this.joueur.getJ2() );
+	        		}
+	        	}
+	        	
+	        	this.tours++;
+	        	if( noQuit )
+	        	{
+	        		this.plateau.afficher(this.tours);
+	        	}
+	        }
+		}
 }
+
