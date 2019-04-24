@@ -17,10 +17,10 @@ class Undo {
     /* pile qui sauvegarde les coordonnées cible */
     private Stack<Point> pile_cible;
 
-    /* pile qui sauvegarde les pièces qui ont été supprimées */
+    /* pile qui sauvegarde les pièce qui ont été supprimées */
     private Stack<Piece> pile_piece_depart;
     
-    /* pile qui sauvegarde les pièces qui ont été supprimées */
+    /* pile qui sauvegarde les pièce qui ont été supprimées */
     private Stack<Piece> pile_piece_cible;
     
 

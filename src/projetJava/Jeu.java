@@ -21,7 +21,7 @@ public class Jeu {
 	 * Lecture du clavier
 	 * @param plateau 	plateau du jeu pour effectuer les modifications
 	 */
-	public void jouer (){
+	public void jouer () {
 		boolean noQuit = true;
 		
         while( noQuit )
@@ -48,17 +48,16 @@ public class Jeu {
         		else
         		{
         			// ia a faire
-	        			noQuit = false;
-	        			System.out.println( this.joueur.getJ2() );
-	        		}
-	        	}
-	        	
-	        	this.tours++;
-	        	if( noQuit )
-	        	{
-	        		this.plateau.afficher(this.tours);
-	        	}
-	        }
-		}
+        			noQuit = false;
+        			System.out.println( this.joueur.getJ2() );
+        		}
+        	}
+        	
+        	this.tours++;
+        	if( noQuit )
+        	{
+        		this.plateau.afficher(this.tours);
+        	}
+        }
+	}
 }
-
