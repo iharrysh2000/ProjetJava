@@ -7,6 +7,7 @@ public class Plateau {
 	public Plateau () {
 
 		this.plateau = new Case[8][8];
+		
 		Case c;
 		int coul = 0;
 
@@ -107,7 +108,7 @@ public class Plateau {
 			
 	}
 	
-	// probleme
+	// Pion
 	public boolean movePion  (int depX, int depY, int finX, int finY) {
 		int dx = finX - depX;
 		int dy = finY - depY;
@@ -124,8 +125,7 @@ public class Plateau {
 				// Test si la case destination n'a pas de piece
 				if( dest.getPiece() == null )
 				{
-					dest.changePiece(c.getPiece());
-					c.changePiece(null);
+					this.movePiece(c, dest);
 					bouge = true;
 				}
 			}
@@ -138,8 +138,7 @@ public class Plateau {
 				{
 					if( dest.getPiece() != null && c.getPiece().getCoul() != dest.getPiece().getCoul() )
 					{
-						dest.changePiece(c.getPiece());
-						c.changePiece(null);
+						this.movePiece(c, dest);
 						bouge = true;
 					}
 				}
@@ -150,8 +149,7 @@ public class Plateau {
 				{
 					if( dest.getPiece() != null && c.getPiece().getCoul() != dest.getPiece().getCoul() )
 					{
-						dest.changePiece(c.getPiece());
-						c.changePiece(null);
+						this.movePiece(c, dest);
 						bouge = true;
 					}
 				}
@@ -176,14 +174,12 @@ public class Plateau {
 		
 		if( dest.getPiece() == null)
 		{
-			dest.changePiece(c.getPiece());
-			c.changePiece(null);
+			this.movePiece(c, dest);
 			return true;
 		}
 		else if( c.getPiece().getCoul() != dest.getPiece().getCoul() )
 		{
-			dest.changePiece(c.getPiece());
-			c.changePiece(null);
+			this.movePiece(c, dest);
 			return true;
 		}
 		return false;
@@ -222,15 +218,13 @@ public class Plateau {
 					// Test si la case destination n'a pas de piece
 					if( dest.getPiece() == null )
 					{
-						dest.changePiece(c.getPiece());
-						c.changePiece(null);
+						this.movePiece(c, dest);
 						return true;
 					}
 					// Test si la couleur de la piece destination est différente de la piece de départ
 					else if ( c.getPiece().getCoul() != dest.getPiece().getCoul() )
 					{
-						dest.changePiece(c.getPiece());
-						c.changePiece(null);
+						this.movePiece(c, dest);
 						return true;
 					}
 				}
@@ -241,15 +235,13 @@ public class Plateau {
 				{
 					if( dest.getPiece() == null )
 					{
-						dest.changePiece(c.getPiece());
-						c.changePiece(null);
+						this.movePiece(c, dest);
 						return true;
 					}
 					// Test si la couleur de la piece destination est différente de la piece de départ
 					else if ( c.getPiece().getCoul() != dest.getPiece().getCoul() )
 					{
-						dest.changePiece(c.getPiece());
-						c.changePiece(null);
+						this.movePiece(c, dest);
 						return true;
 					}
 				}
@@ -376,7 +368,6 @@ public class Plateau {
 	
 	
 	// Affichage
-	
 	public void afficher( int tours){
 		System.out.println("\nTours " + tours + " :\n");
         for (int j = 7; j >=0; j--){
@@ -396,34 +387,14 @@ public class Plateau {
         System.out.println(" ");
     }
 	
-	/**
-	 * Getteur de pièce dans le plateau
-	 * @param x
-	 * @param y
-	 * @return une pièce selon les coordonnées données en entrée (x,y);
-	 */
+	// Getteur de piece
 	public Piece getPiece (int x, int y) {
 		return this.plateau[x][y].getPiece();
 	}
 	
-	/**
-	 * Retourner en arrière en dépilant
-	 * @param point_cible
-	 * @param point_depart
-	 */
-	public void retour_arriere(Point point_cible,Point point_depart) {
-		Piece piece = this.plateau[point_cible.getX()][point_cible.getY()].getPiece();
-		this.plateau[point_cible.getX()][point_cible.getY()].changePiece(null);
-		this.plateau[point_depart.getX()][point_depart.getY()].changePiece(piece);;
+	public void movePiece (Case c, Case dest) {
+		dest.changePiece(c.getPiece());
+		c.changePiece(null);
 	}
 	
-	/**
-	 * Ajoute une pièce dans le plateau de jeu
-	 * On change la case en la nouvelle piece passer en arguement
-	 * @param piece à ajouter
-	 * @param point l'emplacement ou l'on souhaite ajouter la pièce
-	 */
-	public void addObject(Piece piece,Point point) {
-		this.plateau[point.getX()][point.getY()].changePiece(piece);
-	}
 }

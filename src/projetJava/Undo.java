@@ -18,7 +18,10 @@ class Undo {
     private Stack<Point> pile_cible;
 
     /* pile qui sauvegarde les pièce qui ont été supprimées */
-    private Stack<Piece> pile_piece;
+    private Stack<Piece> pile_piece_depart;
+    
+    /* pile qui sauvegarde les pièce qui ont été supprimées */
+    private Stack<Piece> pile_piece_cible;
     
 
     /**
@@ -28,7 +31,8 @@ class Undo {
     public Undo(){
         this.pile_depart = new Stack<Point>();
         this.pile_cible = new Stack<Point>();
-        this.pile_piece = new Stack<Piece>();
+        this.pile_piece_depart = new Stack<Piece>();
+        this.pile_piece_cible = new Stack<Piece>();
     }
     
     /**
@@ -45,8 +49,16 @@ class Undo {
      * Permet d'enregistrer une piece
      * @param piece
      */
-    public void enregistrer_piece(Piece piece) {
-    	this.pile_piece.push(piece);
+    public void enregistrer_piece_depart(Piece piece) {
+    	this.pile_piece_depart.push(piece);
+    }
+    
+    /**
+     * Permet d'enregistrer une piece
+     * @param piece
+     */
+    public void enregistrer_piece_cible (Piece piece) {
+    	this.pile_piece_cible.push(piece);
     }
     
     /**
@@ -69,8 +81,16 @@ class Undo {
      * Depile les pieces qui ont été supprimées durant la partie
      * @return piece
      */
-    public Piece depile_piece() {
-    	return this.pile_piece.pop();
+    public Piece depile_piece_depart() {
+    	return this.pile_piece_depart.pop();
+    }
+    
+    /**
+     * Depile les pieces qui ont été supprimées durant la partie
+     * @return piece
+     */
+    public Stack<Piece> depile_piece_cible(){
+    	return this.pile_piece_cible;
     }
     
     /**
@@ -93,7 +113,16 @@ class Undo {
      * Getteur de la pile des pièces
      * @return pile
      */
-    public Stack<Piece> getPile_piece(){
-    	return this.pile_piece;
+    public Stack<Piece> getPile_piece_depart (){
+    	return this.pile_piece_depart;
+    }
+ 
+    
+    /**
+     * Getteur de la pile des pièces
+     * @return pile
+     */
+    public Stack<Piece> getPile_piece_cible(){
+    	return this.pile_piece_cible;
     }
 }

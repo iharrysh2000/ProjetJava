@@ -1,42 +1,47 @@
 package projetJava;
 
-import java.util.Scanner;
-
 /**
  * Classe Joueur qui indique qui sont les joueurs
  */
 public class Joueur {
 	
-	private Scanner sc; //scanner pour lire qui joue
-	private char j1; //représente le joueur 1
-	private char j2; //repréente le joueur 2
+	private String j1; //représente le joueur 1
+	private String j2; //repréente le joueur 2
 	
 	/**
 	 * Constructeur du joueur
 	 */
 	public Joueur () {
-		this.sc = new Scanner(System.in);
-		this.j1 = '0'; //juste pour initialiser
-		this.j2 = '0'; //juste pour initialiser
+		IO tmp = new IO();
+		boolean found = false;
+		
+		System.out.println("\nLe jeu se joue à 2. Ecrivez : "
+				+ "\n - H pour Humain"
+				+ "\n - O pour Ordi\n");
+		
+		while( !found )
+		{
+			System.out.println("\nVeuillez choisir le type du premier joueur :\n");
+			this.j1 = tmp.quiJoue();
+			System.out.println("\nVeuillez choisir le type du second joueur :\n");
+			this.j2 = tmp.quiJoue();
+			
+			if ( ( j1.equals("H") || j1.equals("O") ) && ( j2.equals("H") || j2.equals("O") ) )
+			{
+				found = true;
+			}
+			else
+			{
+				System.out.println("ERREUR : Mauvaise commande. Veuillez taper une des 2 commandes");
+			}
+		}
 	}
 	
-	/**
-	 * Détermine qui sont les joueurs
-	 */
-	public boolean quiJoue () {
-		System.out.println("\nLe jeu se joue à 2. Ecrivez : "
-				+ "\n HO pour une partie Humain VS Ordinateur"
-				+ "\n HH pour une partie Humain VS Humain"
-				+ "\n OO pour une partie Ordinateur VS Ordinateur");
-		String str = this.sc.nextLine();
-		j1 = str.charAt(0);
-		j2 = str.charAt(1);
-		if ((j1 == 'H' && j2 == 'O') || (j1 == j2)){
-			return true;
-		}
-		else {
-			System.out.println("ERREUR : Mauvaise commande. Veuillez taper une des 3 commandes");
-			return false;
-		}
+	public String getJ1 () {
+		return this.j1;
+	}
+	
+	public String getJ2 () {
+		return this.j2;
 	}
 }

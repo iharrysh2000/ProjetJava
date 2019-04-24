@@ -9,9 +9,7 @@ public class IO {
 		private int x_depart;		// ** coordonnées de départ x ** //
 		private int y_depart;		// ** coordonnées de départ y ** //
 		private int x_cible;		// ** coordonnées cible x ** //
-		public int y_cible;		// ** coordonnées cible y ** //
-		
-		private Undo undo;
+		private int y_cible;		// ** coordonnées cible y ** //
 		
 		public IO () {
 			this.sc = new Scanner(System.in);
@@ -20,23 +18,6 @@ public class IO {
 			this.x_cible = -1;
 			this.y_depart = -1;
 			this.y_cible = -1;
-			this.undo = new Undo();
-		}
-		
-		/**
-		 * Lecture du clavier
-		 * @param plateau 	plateau du jeu pour effectuer les modifications
-		 */
-		public void lireClavier(Plateau plateau){
-			int tours = 0;
-	        while(true)
-	        {
-	        	this.entryPiece (plateau, tours%2);
-	        	System.out.println(">save piece:"  + this.undo.getPile_point_cible());
-	        	System.out.println(">les joueurs hors jeu" + this.undo.getPile_piece());
-	        	plateau.afficher(tours);
-	        	tours++;
-	        }
 		}
 		
 		/*  Gère entré sortie
@@ -44,30 +25,19 @@ public class IO {
 		 * 			- Test si la piece au coord de depart est de la bonne couleur (-1 si ya pas de piece)
 		 * 			- Test si la piece peux bouger
 		 */
-		public void entryPiece (Plateau plateau, int couleur)
+		public boolean entryPiece (Plateau plateau, int couleur)
 		{
 			int coul_piece_depart;
 			
 		    do {
 		        System.out.println("\nVeuillez saisir les coordonnées :");
 		        String str = this.sc.nextLine();
-		        
-		        if(str.equals("undo")) {
-		        	if(this.undo.getPile_point_cible().isEmpty()) return; // On verifie pour une pile
-		        	Point point_cible = this.undo.depile_point_cible();
-		        	if(plateau.getPiece(point_cible.getX(), point_cible.getY()) == null) { // Si case vide alors la pièce à cette endroit à été mangé donc il faut la remettre dans le plateau
-		        		Piece piece = this.undo.depile_piece();
-		        		plateau.addObject(piece,point_cible);
-		        	}
-		        	Point point_depart = this.undo.depile_point_depart();
-		        	plateau.retour_arriere(point_cible, point_depart);
-		        	return;
-		        }
+		        if( this.quit(str) ) return false;
 		        
 		        this.x_depart = str.charAt(0) - 'a';
 		        this.y_depart = str.charAt(1) - '1';
 		        this.x_cible = str.charAt(2) - 'a';
-		        this.y_cible = str.charAt(3) - '1';
+		        this. y_cible = str.charAt(3) - '1';
 		        
 		        coul_piece_depart = -1;
 		        
@@ -80,7 +50,7 @@ public class IO {
 		    			|| coul_piece_depart != couleur
 		    			|| !plateau.movePiece(this.x_depart, this.y_depart, this.x_cible, this.y_cible) );
 		    
-		    this.undo.enregistrer_coords(new Point(x_depart,y_depart),new Point(x_cible,y_cible)); 
+		    return true;
 		}
 		
 		/** Getteur du scanner pour le fermer
@@ -92,7 +62,7 @@ public class IO {
 		}
 		
 		
-		/* Gère la promotion des pions
+		/* Gère la promotion des pion
 		 * 
 		 */
 		public void promotion (Case dest) {
@@ -121,4 +91,24 @@ public class IO {
 			}
 		}
 		
+		
+		/* Test si le joueur veux arrêter la partie
+		 * 
+		 */
+		public boolean quit (String str) {
+			if(str.equals("quit") || str.equals("q"))
+			{
+				return true;
+			}
+			return false;
+		}
+		
+		/**
+		 * Détermine qui sont les joueurs
+		 */
+		public String quiJoue () {
+			String str;
+			str = this.sc.nextLine();
+			return str;
+		}
 }

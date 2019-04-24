@@ -3,7 +3,6 @@ package projetJava;
 public class Point {
 	
 	private int x;
-	
 	private int y;
 	
 	public Point(int x, int y) {
@@ -21,6 +20,6 @@ public class Point {
 	
 	@Override
 	public String toString() {
-		return "[" + this.x +","+ this.y +"]";
+		return "x : " + this.x + ", y : " + this.y;
 	}
 }
