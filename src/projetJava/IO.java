@@ -33,6 +33,7 @@ public class IO {
 	        {
 	        	this.entryPiece (plateau, tours%2);
 	        	System.out.println(">save piece:"  + this.undo.getPile_point_cible());
+	        	System.out.println(">les joueurs hors jeu" + this.undo.getPile_piece());
 	        	plateau.afficher(tours);
 	        	tours++;
 	        }
@@ -74,6 +75,7 @@ public class IO {
 		    } while ( !plateau.inMap(this.x_depart, this.y_depart, this.x_cible, this.y_cible)
 		    			|| coul_piece_depart != couleur
 		    			|| !plateau.movePiece(this.x_depart, this.y_depart, this.x_cible, this.y_cible) );
+		    
 		    this.undo.Enregistrer(new Point(x_depart,y_depart),new Point(x_cible,y_cible)); 
 		}
 		
@@ -114,4 +116,5 @@ public class IO {
 				System.out.println("Pion -> Dame/Reine");
 			}
 		}
+		
 }

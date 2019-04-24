@@ -93,7 +93,7 @@ class Undo {
      * Getteur de la pile des pièces
      * @return pile
      */
-    public Stack<Piece> getPiece(){
+    public Stack<Piece> getPile_piece(){
     	return this.pile_piece;
     }
 }

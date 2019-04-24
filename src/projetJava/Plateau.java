@@ -396,15 +396,24 @@ public class Plateau {
         System.out.println(" ");
     }
 	
-	// Getteur de piece
+	/**
+	 * Getteur de pièce dans le plateau
+	 * @param x
+	 * @param y
+	 * @return une pièce selon les coordonnées données en entrée (x,y);
+	 */
 	public Piece getPiece (int x, int y) {
 		return this.plateau[x][y].getPiece();
 	}
 	
+	/**
+	 * Retourner en arrière en dépilant
+	 * @param point_cible
+	 * @param point_depart
+	 */
 	public void retour_arriere(Point point_cible,Point point_depart) {
 		Piece piece = this.plateau[point_cible.getX()][point_cible.getY()].getPiece();
 		this.plateau[point_cible.getX()][point_cible.getY()].changePiece(null);
 		this.plateau[point_depart.getX()][point_depart.getY()].changePiece(piece);;
 	}
-	
 }
