@@ -36,7 +36,7 @@ class Undo {
      * @param point_depart
      * @param point_cible
      */
-    public void Enregistrer(Point point_depart,Point point_cible) {
+    public void enregistrer_coords(Point point_depart,Point point_cible) {
     	this.pile_depart.push(point_depart);
     	this.pile_cible.push(point_cible);
     }

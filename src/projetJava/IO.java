@@ -53,8 +53,12 @@ public class IO {
 		        String str = this.sc.nextLine();
 		        
 		        if(str.equals("undo")) {
-				if(this.undo.getPile_point_cible().isEmpty()) return; // On verifie pour une pile
+		        	if(this.undo.getPile_point_cible().isEmpty()) return; // On verifie pour une pile
 		        	Point point_cible = this.undo.depile_point_cible();
+		        	if(plateau.getPiece(point_cible.getX(), point_cible.getY()) == null) { // Si case vide alors la pièce à cette endroit à été mangé donc il faut la remettre dans le plateau
+		        		Piece piece = this.undo.depile_piece();
+		        		plateau.addObject(piece,point_cible);
+		        	}
 		        	Point point_depart = this.undo.depile_point_depart();
 		        	plateau.retour_arriere(point_cible, point_depart);
 		        	return;
@@ -76,7 +80,7 @@ public class IO {
 		    			|| coul_piece_depart != couleur
 		    			|| !plateau.movePiece(this.x_depart, this.y_depart, this.x_cible, this.y_cible) );
 		    
-		    this.undo.Enregistrer(new Point(x_depart,y_depart),new Point(x_cible,y_cible)); 
+		    this.undo.enregistrer_coords(new Point(x_depart,y_depart),new Point(x_cible,y_cible)); 
 		}
 		
 		/** Getteur du scanner pour le fermer

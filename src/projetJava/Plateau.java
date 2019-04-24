@@ -416,4 +416,14 @@ public class Plateau {
 		this.plateau[point_cible.getX()][point_cible.getY()].changePiece(null);
 		this.plateau[point_depart.getX()][point_depart.getY()].changePiece(piece);;
 	}
+	
+	/**
+	 * Ajoute une pièce dans le plateau de jeu
+	 * On change la case en la nouvelle piece passer en arguement
+	 * @param piece à ajouter
+	 * @param point l'emplacement ou l'on souhaite ajouter la pièce
+	 */
+	public void addObject(Piece piece,Point point) {
+		this.plateau[point.getX()][point.getY()].changePiece(piece);
+	}
 }
