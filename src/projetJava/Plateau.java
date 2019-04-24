@@ -392,6 +392,21 @@ public class Plateau {
 		return this.plateau[x][y].getPiece();
 	}
 	
+	// Getteur de pos d'une piece
+	public Point getPosPiece (Piece piece) {
+		for( int i = 0 ; i < 8 ; i++) 
+		{
+			for( int j = 0 ; j < 8 ; j++) 
+			{
+				if(this.plateau[i][j].getPiece() == piece)
+				{
+					return new Point(i,j);
+				}
+			}
+		}
+		return null;
+	}
+	
 	public void movePiece (Case c, Case dest) {
 		dest.changePiece(c.getPiece());
 		c.changePiece(null);
