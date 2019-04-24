@@ -31,7 +31,7 @@ public class Joueur {
 		String str = this.sc.nextLine();
 		j1 = str.charAt(0);
 		j2 = str.charAt(1);
-		if (j1 == 'H' || j1 == 'O' && j2 == 'H' || j2 == 'O') {
+		if ((j1 == 'H' && j2 == 'O') || (j1 == j2) {
 			return true;
 		}
 		else {
