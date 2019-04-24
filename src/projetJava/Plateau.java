@@ -396,5 +396,13 @@ public class Plateau {
 		dest.changePiece(c.getPiece());
 		c.changePiece(null);
 	}
-	
+	public Point findKing(int couleur) {
+		for( int i = 0 ; i < 8 ; i++) {
+			for( int j = 0 ; j < 8 ; j++) {
+				if(this.plateau[i][j].getPiece() == Roi.class) {
+					return new Point(i,j);
+				}
+			}
+		}
+	}
 }
