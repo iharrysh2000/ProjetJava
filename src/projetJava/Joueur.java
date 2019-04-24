@@ -1,32 +1,42 @@
 package projetJava;
 
+import java.util.Scanner;
+
+/**
+ * Classe Joueur qui indique qui sont les joueurs
+ */
 public class Joueur {
 	
-	//instances
-	private int aQuiDeJouer;
+	private Scanner sc; //scanner pour lire qui joue
+	private char j1; //représente le joueur 1
+	private char j2; //repréente le joueur 2
 	
-	//constructeur
+	/**
+	 * Constructeur du joueur
+	 */
 	public Joueur () {
-		this.aQuiDeJouer = 0;
+		this.sc = new Scanner(System.in);
+		this.j1 = '0'; //juste pour initialiser
+		this.j2 = '0'; //juste pour initialiser
 	}
 	
-	//méthodes
-	public int changement () {
-		if (this.aQuiDeJouer == 0) { //c'était l'ordi qui jouait
-			this.aQuiDeJouer = 1; //donc au tour de l'humain
-		}
-		else { //c'était l'humain qui jouait
-			this.aQuiDeJouer = 0; //donc au tour de l'ordi
-		}
-		return this.aQuiDeJouer;
-	}
-	
-	public void auTourDeQui () { //affiche qui joue
-		if(changement ()%2 == 1) {
-			System.out.println("Au tour de l'humain de jouer.");
+	/**
+	 * Détermine qui sont les joueurs
+	 */
+	public boolean quiJoue () {
+		System.out.println("\nLe jeu se joue à 2. Ecrivez : "
+				+ "\n HO pour une partie Humain VS Ordinateur"
+				+ "\n HH pour une partie Humain VS Humain"
+				+ "\n OO pour une partie Ordinateur VS Ordinateur");
+		String str = this.sc.nextLine();
+		j1 = str.charAt(0);
+		j2 = str.charAt(1);
+		if (j1 == 'H' || j1 == 'O' && j2 == 'H' || j2 == 'O') {
+			return true;
 		}
 		else {
-			System.out.println("Au tour de l'ordinateur de jouer.");
+			System.out.println("ERREUR : Mauvaise commande. Veuillez taper une des 3 commandes");
+			return false;
 		}
 	}
 }
