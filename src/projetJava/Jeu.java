@@ -23,38 +23,38 @@ public class Jeu {
 	 */
 	public void jouer () {
 		boolean noQuit = true;
-		int couleur = 1;
+		int a_qui_de_jouer = 1;
         while( noQuit )
         {
-        	couleur = couleur ^ 1;
-        	if(couleur == 0)
+        	a_qui_de_jouer = a_qui_de_jouer^ 1;
+        	if(a_qui_de_jouer == 0)
         	{
         		if( this.joueur.getJ1().equals("H") )
         		{
-        			noQuit = this.io.entryPiece (this.plateau, couleur);
-        			this.plateau.isEchec(couleur);
+        			noQuit = this.io.entryPiece (this.plateau, a_qui_de_jouer);
+        			this.plateau.isEchec(a_qui_de_jouer);
         		}
         		else
         		{
         			// ia a faire
         			noQuit = false;
         			System.out.println( this.joueur.getJ1() );
-        			this.plateau.isEchec(couleur);
+        			this.plateau.isEchec(a_qui_de_jouer);
         		}
         	}
         	else
         	{
         		if( this.joueur.getJ2().equals("H") )
         		{
-        			noQuit = this.io.entryPiece (this.plateau, couleur);
-        			this.plateau.isEchec(couleur);
+        			noQuit = this.io.entryPiece (this.plateau,a_qui_de_jouer);
+        			this.plateau.isEchec(a_qui_de_jouer);
         		}
         		else
         		{
         			// ia a faire
         			noQuit = false;
         			System.out.println( this.joueur.getJ2() );
-        			this.plateau.isEchec(couleur);
+        			this.plateau.isEchec(a_qui_de_jouer);
         		}
         	}
         	
