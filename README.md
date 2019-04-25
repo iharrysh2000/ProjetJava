@@ -19,11 +19,11 @@ Le projet contients:
 -> La documentation (dossier doc) ou se trouve la Javadoc, la description de l'ensemble des classes
 
 ### 1.1 Instructions 
-Le jeu est sous forme ascii.Après compilation et execution il faut décider si J1 et J2 seront de type Joueur ou Ordinateur (respective H pour être joueur et O pour laisser l'ordinateur jouer).Et ensuite pour jouer il faut inscrire les coordonnées pour faire bouger les pièces du jeu. Pour quitter le jeu entrez "quit" et pour faire un retour en arrière entrez "undo".
+Le jeu est sous forme ascii.Après compilation et execution il faut décider si J1 et J2 seront de type Joueur ou Ordinateur (respective H pour être joueur et O pour laisser l'ordinateur jouer).Et ensuite pour jouer il faut inscrire des coordonnées  afin de faire bouger les pièces du jeu (par exemple a2 a4 fera bouger le pion a2 vers a4). Pour quitter le jeu entrez "quit" et pour faire un retour en arrière entrez "undo".
 
 # Manuel technique
 
-## 1. Présentations général des classes
+## 1. Présentation général des classes
 ### 1.0 Gestion des entrées du clavier
 Les entrées sorties sont gérées par la classe IO qui attend les données entrées par l'utilisateur.Si par inadvertance l'utilisateur entre des coordonnées qui dépasse le cadre du jeu ou qu'il choisi une case ou il y a pas de pièce alors il doit reécrire des coordonnées jusqu'à que ses coordonnées soient correcte.
 
