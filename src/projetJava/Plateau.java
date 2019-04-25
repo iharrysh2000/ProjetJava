@@ -17,7 +17,7 @@ public class Plateau {
 	            {
 	            	if( j == 1 )
 	            	{
-	            		c = new Case(null, (i+j)%2);
+	            		c = new Case(new Pion(coul), (i+j)%2);
 	                	this.plateau[i][j] = c;
 	            	}
 	            	else if( i == 0 || i == 7)
@@ -61,7 +61,7 @@ public class Plateau {
 	            {
 	            	if( j == 6 )
 	            	{
-	            		c = new Case(null, (i+j)%2);
+	            		c = new Case(new Pion(coul), (i+j)%2);
 	                	this.plateau[i][j] = c;
 	            	}
 	            	else if( i == 0 || i == 7)
@@ -493,17 +493,14 @@ public class Plateau {
 		// <*> Si le point qu'on souhaite vérifié est déjà dans la map ou le roi est en dehors de map <*> // 
 		
 		if(!(this.inMap(point.getX(), point.getY(), point.getX(), point.getY()))) {
-			System.out.println("void out map");
 			return true;
 		}
 		if(plateau[point.getX()][point.getY()].getPiece() != null) {
 			if(!(plateau[point.getX()][point.getY()].getPiece().toString().equals("R" + couleur))){
-				System.out.println("not piece or void");
 				return true;
 			}
 		}
 		
-		System.out.println("is valide ?");
 		return this.havePion(point,couleur ^ 1) 
 				|| this.haveCavalier(point, couleur ^ 1) 
 				|| this.haveDiagonal(point, couleur ^ 1) 
