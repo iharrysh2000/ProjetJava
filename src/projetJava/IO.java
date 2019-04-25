@@ -62,7 +62,7 @@ public class IO {
 		}
 		
 		
-		/* Gère la promotion des pion
+		/* Gère la promotion des pions
 		 * 
 		 */
 		public void promotion (Case dest) {

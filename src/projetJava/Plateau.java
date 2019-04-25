@@ -17,7 +17,7 @@ public class Plateau {
 	            {
 	            	if( j == 1 )
 	            	{
-	            		c = new Case(new Pion (coul), (i+j)%2);
+	            		c = new Case(null, (i+j)%2);
 	                	this.plateau[i][j] = c;
 	            	}
 	            	else if( i == 0 || i == 7)
@@ -61,7 +61,7 @@ public class Plateau {
 	            {
 	            	if( j == 6 )
 	            	{
-	            		c = new Case(new Pion (coul), (i+j)%2);
+	            		c = new Case(null, (i+j)%2);
 	                	this.plateau[i][j] = c;
 	            	}
 	            	else if( i == 0 || i == 7)
@@ -481,20 +481,80 @@ public class Plateau {
 		c.changePiece(null);
 	}
 	
+	
+	public boolean isEchec(int couleur) {
+		Point point = new Point(this.findKing(couleur).getX(),this.findKing(couleur).getY());
+		System.out.println(haveHV(point,couleur ^ 1));
+		return true;
+	}
+	
 	public Point findKing(int couleur) {
-		
 		for( int i = 0 ; i < 8 ; i++) 
 		{
 			for( int j = 0 ; j < 8 ; j++) 
 			{
-				if(this.plateau[i][j].getPiece().getClass() == Roi.class
-					&& this.plateau[i][j].getPiece().getCoul() == couleur)
+				if(this.plateau[i][j].getPiece() != null)
 				{
-					return new Point(i,j);
+					if(this.plateau[i][j].getPiece().toString().equals("R" + couleur)) {
+						return new Point(i,j);
+					}
 				}
 			}
 		}
+		return new Point(-1,-1); // Afficher erreurs roi non trouvé
+	}
+	
+	public boolean haveHV(final Point point,final int couleur) {
 		
-		return null;
+		for( int x = point.getX() ; x < 8 ; x++) {
+			if(this.plateau[x][point.getY()].getPiece() != null) {
+				
+				if(this.plateau[x][point.getY()].getPiece().toString().equals("T" + couleur)
+						|| this.plateau[x][point.getY()].getPiece().toString().equals("D" + couleur)){
+					return true;
+				}
+				if(this.plateau[x][point.getY()].getPiece().getCoul() != couleur
+						&& x != point.getX()) {
+					break;
+				}
+			}
+		}
+		for( int x = point.getX() ; x > 0 ; x--) {
+			if(this.plateau[x][point.getY()].getPiece() != null) {
+				if(this.plateau[x][point.getY()].getPiece().toString().equals("T" + couleur)
+						|| this.plateau[x][point.getY()].getPiece().toString().equals("D" + couleur)){
+					return true;
+				}
+				if(this.plateau[x][point.getY()].getPiece().getCoul() != couleur
+						&& x != point.getX()) {
+					break;
+				}
+			}
+		}
+		for( int y = point.getY() ; y < 8 ; y++) {
+			if(this.plateau[point.getX()][y].getPiece() != null) {
+				if(this.plateau[point.getX()][y].getPiece().toString().equals("T" + couleur)
+						|| this.plateau[point.getX()][y].getPiece().toString().equals("D" + couleur)){
+					return true;
+				}
+				if(this.plateau[point.getX()][y].getPiece().getCoul() != couleur
+						&& y != point.getY()) {
+					break;
+				}
+			}
+		}
+		for( int y = point.getY() ; y > 0; y--) {
+			if(this.plateau[point.getX()][y].getPiece() != null) {
+				if(this.plateau[point.getX()][y].getPiece().toString().equals("T" + couleur)
+						|| this.plateau[point.getX()][y].getPiece().toString().equals("D" + couleur)){
+					return true;
+				}
+				if(this.plateau[point.getX()][y].getPiece().getCoul() != couleur
+						&& y != point.getY()) {
+					break;
+				}
+			}
+		}
+		return false;
 	}
 }

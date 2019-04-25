@@ -23,9 +23,11 @@ public class Jeu {
 	 */
 	public void jouer () {
 		boolean noQuit = true;
-		
+		int couleur = 1;
         while( noQuit )
         {
+        	couleur = couleur ^ 1;
+        	this.plateau.isEchec(couleur);
         	if(this.tours%2 == 0 )
         	{
         		if( this.joueur.getJ1().equals("H") )
