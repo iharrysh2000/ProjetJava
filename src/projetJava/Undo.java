@@ -66,7 +66,7 @@ class Undo {
      * @return coordonnées de départ
      */
     public Point depile_point_depart() {
-    	if( !this.pile_piece_cible.empty() )
+    	if( !this.pile_depart.empty() )
     	{
     		return this.pile_depart.pop();
     	}
@@ -78,7 +78,7 @@ class Undo {
      * @return coordonnées cible
      */
     public Point depile_point_cible() {
-    	if( !this.pile_piece_cible.empty() )
+    	if( !this.pile_cible.empty() )
     	{
     		return this.pile_cible.pop();
     	}
@@ -90,7 +90,7 @@ class Undo {
      * @return piece
      */
     public Piece depile_piece_depart() {
-    	if( !this.pile_piece_cible.empty() )
+    	if( !this.pile_piece_depart.empty() )
     	{
     		return this.pile_piece_depart.pop();
     	}
