@@ -3,7 +3,9 @@ package projetJava;
 import java.util.Scanner;
 
 public class IO {
-	
+		
+		private Undo undo;
+		
 		private Scanner sc;
 
 		private int x_depart;		// ** coordonnées de départ x ** //
@@ -11,7 +13,8 @@ public class IO {
 		private int x_cible;		// ** coordonnées cible x ** //
 		private int y_cible;		// ** coordonnées cible y ** //
 		
-		public IO () {
+		public IO (Undo undo) {
+			this.undo = undo;
 			this.sc = new Scanner(System.in);
 			
 			this.x_depart = -1;
@@ -25,14 +28,33 @@ public class IO {
 		 * 			- Test si la piece au coord de depart est de la bonne couleur (-1 si ya pas de piece)
 		 * 			- Test si la piece peux bouger
 		 */
-		public boolean entryPiece (Plateau plateau, int couleur)
+		public boolean entryPiece (Plateau plateau, int couleur, int tours)
 		{
 			int coul_piece_depart;
+			Piece piece_depart;
+			Piece piece_cible;
 			
 		    do {
 		        System.out.println("\nVeuillez saisir les coordonnées :");
 		        String str = this.sc.nextLine();
 		        if( this.quit(str) ) return false;
+		        if( str.equals("undo") )
+		        {
+		        	
+		        	if( !this.undo.getPile_piece_depart().empty() )
+		        	{
+		        		piece_depart = this.undo.depile_piece_depart();
+		        		piece_cible = this.undo.depile_piece_cible();
+		        		
+		        		Point point_depart = this.undo.depile_point_depart();
+		    		    Point point_cible = this.undo.depile_point_cible();
+		    		    
+		    		    plateau.getCase(point_depart.getX(), point_depart.getY()).changePiece(piece_depart);
+		    		    plateau.getCase(point_cible.getX(), point_cible.getY()).changePiece(piece_cible);
+		    		    tours--;
+		        	}
+		        	return true;
+		        }
 		        
 		        this.x_depart = str.charAt(0) - 'a';
 		        this.y_depart = str.charAt(1) - '1';
@@ -46,11 +68,25 @@ public class IO {
 		        	coul_piece_depart = plateau.getPiece(this.x_depart, this.y_depart).getCoul();
 		        }
 		        
+		        piece_depart = plateau.getPiece(this.x_depart, this.y_depart);
+		        piece_cible = plateau.getPiece(this.x_cible, this.y_cible);
+
 		    } while ( !plateau.inMap(this.x_depart, this.y_depart, this.x_cible, this.y_cible)
 		    			|| coul_piece_depart != couleur
 		    			|| !plateau.movePiece(this.x_depart, this.y_depart, this.x_cible, this.y_cible) );
+
+			Point point_depart = new Point(this.x_depart, this.y_depart);
+			Point point_cible = new Point(this.x_cible , this.y_cible);
+			  
+			this.empile(point_depart, point_cible, piece_depart, piece_cible);
 		    
 		    return true;
+		}
+		
+		public void empile (Point point_depart, Point point_cible, Piece piece_depart, Piece piece_cible) {
+			this.undo.enregistrer_coords(point_depart, point_cible);
+			this.undo.enregistrer_piece_cible(piece_cible);
+			this.undo.enregistrer_piece_depart(piece_depart);
 		}
 		
 		/** Getteur du scanner pour le fermer

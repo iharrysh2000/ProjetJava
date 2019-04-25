@@ -66,7 +66,11 @@ class Undo {
      * @return coordonnées de départ
      */
     public Point depile_point_depart() {
-    	return this.pile_depart.pop();
+    	if( !this.pile_piece_cible.empty() )
+    	{
+    		return this.pile_depart.pop();
+    	}
+    	return null;
     }
     
     /**
@@ -74,7 +78,11 @@ class Undo {
      * @return coordonnées cible
      */
     public Point depile_point_cible() {
-    	return this.pile_cible.pop();
+    	if( !this.pile_piece_cible.empty() )
+    	{
+    		return this.pile_cible.pop();
+    	}
+    	return null;
     }
     
     /**
@@ -82,15 +90,23 @@ class Undo {
      * @return piece
      */
     public Piece depile_piece_depart() {
-    	return this.pile_piece_depart.pop();
+    	if( !this.pile_piece_cible.empty() )
+    	{
+    		return this.pile_piece_depart.pop();
+    	}
+    	return null;
     }
     
     /**
      * Depile les pieces qui ont été supprimées durant la partie
      * @return piece
      */
-    public Stack<Piece> depile_piece_cible(){
-    	return this.pile_piece_cible;
+    public Piece depile_piece_cible(){
+    	if( !this.pile_piece_cible.empty() )
+    	{
+    		return this.pile_piece_cible.pop();
+    	}
+    	return null;
     }
     
     /**

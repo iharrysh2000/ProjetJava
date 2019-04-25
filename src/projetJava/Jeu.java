@@ -2,14 +2,16 @@ package projetJava;
 
 public class Jeu {
 	
+	private Undo undo;
 	private Plateau plateau;
 	private IO io;
 	private Joueur joueur;
 	private int tours;
 	
 	public Jeu () {
+		this.undo = new Undo();
 		this.plateau = new Plateau();
-		this.io = new IO();
+		this.io = new IO(this.undo);
 		this.joueur = new Joueur();
 		
 		this.tours = 0;
@@ -30,24 +32,28 @@ public class Jeu {
         	{
         		if( this.joueur.getJ1().equals("H") )
         		{
-        			noQuit = this.io.entryPiece (this.plateau, this.tours%2);
+        			noQuit = this.io.entryPiece (this.plateau, this.tours%2, this.tours);
         		}
         		else
         		{
-        			// ia a faire
-        			this.ia();
+        			if( !this.ia( this.tours%2) )
+        			{
+        				noQuit = false;
+        			}
         		}
         	}
         	else
         	{
         		if( this.joueur.getJ2().equals("H") )
         		{
-        			noQuit = this.io.entryPiece (this.plateau, this.tours%2);
+        			noQuit = this.io.entryPiece (this.plateau, this.tours%2, this.tours);
         		}
         		else
         		{
-        			// ia a faire
-        			this.ia();
+        			if( !this.ia( this.tours%2) )
+        			{
+        				noQuit = false;
+        			}
         		}
         	}
         	
@@ -59,12 +65,15 @@ public class Jeu {
         }
 	}
 	
-	public void ia () {
+	public boolean ia (int couleur) {
 
 		int x_depart;
 		int y_depart;
 		int x_cible;
 		int y_cible;
+		
+		Piece piece_depart;
+		Piece piece_cible;
 		
 		for(int i = 0; i < 8; i++) 
 		{
@@ -80,18 +89,25 @@ public class Jeu {
 						x_cible = k;
 						y_cible = l;
 						
-						if( this.plateau.getPiece(x_depart, y_depart) != null )
+						if( this.plateau.getPiece(x_depart, y_depart) != null 
+							&& this.plateau.getPiece(x_depart, y_depart).getCoul() == couleur)
 						{
-							
+							piece_depart = plateau.getPiece(x_depart, y_depart);
+					        piece_cible = plateau.getPiece(x_cible, y_cible);
+					        
 							if( plateau.inMap(x_depart, y_depart, x_cible, y_cible)
 					    			&& plateau.movePiece(x_depart, y_depart, x_cible, y_cible) )
 							{
-								return;
+								Point point_depart = new Point(x_depart, y_depart);
+								Point point_cible = new Point(x_cible , y_cible);
+								this.io.empile(point_depart, point_cible, piece_depart, piece_cible);
+								return true;
 							}
 						}
 					}
 				}
 			}
 		}
+		return false;
 	}
 }

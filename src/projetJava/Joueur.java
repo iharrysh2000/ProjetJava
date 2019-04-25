@@ -12,7 +12,7 @@ public class Joueur {
 	 * Constructeur du joueur
 	 */
 	public Joueur () {
-		IO tmp = new IO();
+		IO tmp = new IO(null);
 		boolean found = false;
 		
 		System.out.println("\nLe jeu se joue à 2. Ecrivez : "

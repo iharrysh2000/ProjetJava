@@ -159,7 +159,7 @@ public class Plateau {
 		// Promotion des pions a faire 
 		if(bouge && (finY == 0 || finY == 7) )
 		{
-			IO tmp = new IO();
+			IO tmp = new IO(null);
 			tmp.promotion(dest);
 		}
 		
@@ -459,6 +459,10 @@ public class Plateau {
 	// Getteur de piece
 	public Piece getPiece (int x, int y) {
 		return this.plateau[x][y].getPiece();
+	}
+	
+	public Case getCase (int x, int y) {
+		return this.plateau[x][y];
 	}
 	
 	// Getteur de pos d'une piece
