@@ -1,14 +1,9 @@
 package projetJava;
 
-/**
- * Classe Plateau représentant le plateau de jeu
- */
 public class Plateau {
 	private Case[][] plateau;
 	
-	/**
-	 * Contructeur du plateau : initialisation
-	 */
+	// Initialise le plateau
 	public Plateau () {
 
 		this.plateau = new Case[8][8];
@@ -113,9 +108,7 @@ public class Plateau {
 			
 	}
 	
-	/**
-	 * Déplacement du pion
-	 */
+	// Pion
 	public boolean movePion  (int depX, int depY, int finX, int finY) {
 		int dx = finX - depX;
 		int dy = finY - depY;
@@ -179,9 +172,7 @@ public class Plateau {
 		return bouge;
 	}
 	
-	/**
-	 * Déplacement du cavalier
-	 */
+	// Traite le cas du cavalier
 	public boolean moveCavalier (int depX, int depY, int finX, int finY) {
 		
 		Case c = this.plateau[depX][depY];
@@ -200,9 +191,7 @@ public class Plateau {
 		return false;
 	}
 	
-	/**
-	 * Déplacement d'une pièce
-	 */
+	// Déplace une piece
 	public boolean movePiece (int depX, int depY, int finX, int finY) {
 		int dx = finX - depX;
 		int dy = finY - depY;
@@ -268,10 +257,7 @@ public class Plateau {
 	}
 	
 	
-	/**
-	 * Retourne true si les coordonné sont dans la map, false sinon
-	 * @param les coordonnées de départ et d'arrivée
-	 */
+	// Retourne true si les coordonné sont dans la map, false sinon
 	
 	public boolean inMap (int depX, int depY, int finX, int finY) {
 		if (depX >= 0 && depX < 8 && finX >= 0 && finX < 8
@@ -283,10 +269,8 @@ public class Plateau {
 	}
 	
 	
-	/**
-	 * Déplacement en diagonale
-	 * @param les coordonnées de départ et d'arrivée
-	 */
+	// Déplacement en diagonale
+	
 	public boolean testDiag (int depX, int depY, int finX, int finY) {
 		int dx = finX - depX;
 		int dy = finY - depY;
@@ -318,10 +302,6 @@ public class Plateau {
 		return false;
 	}
 	
-	/**
-	 * Test de la diagonale en haut à droite
-	 * @param les coordonnées de départ et d'arrivée
-	 */
 	public boolean testDiagHautDroite (int depX, int depY, int finX, int finY) {
 		Case c;
 		for(int i = depX + 1, j = depY + 1; i < finX && j < finY; i++, j++)
@@ -335,10 +315,6 @@ public class Plateau {
 		return true;
 	}
 	
-	/**
-	 * Test de la diagonale en bas à gauche
-	 * @param les coordonnées de départ et d'arrivée
-	 */
 	public boolean testDiagBasGauche (int depX, int depY, int finX, int finY) {
 		Case c;
 		for(int i = depX - 1, j = depY - 1; i > finX && j > finY; i--, j--)
@@ -352,10 +328,6 @@ public class Plateau {
 		return true;
 	}
 	
-	/**
-	 * Test de la diagonale en haut à gauche
-	 * @param les coordonnées de départ et d'arrivée
-	 */
 	public boolean testDiagHautGauche (int depX, int depY, int finX, int finY) {
 		Case c;
 		for(int i = depX - 1, j = depY + 1; i > finX && j < finY; i--, j++)
@@ -369,10 +341,6 @@ public class Plateau {
 		return true;
 	}
 	
-	/**
-	 * Test de la diagonale en bas à droite
-	 * @param les coordonnées de départ et d'arrivée
-	 */
 	public boolean testDiagBasDroite (int depX, int depY, int finX, int finY) {
 		Case c;
 		for(int i = depX + 1, j = depY - 1; i < finX && j > finY; i++, j--)
@@ -387,10 +355,7 @@ public class Plateau {
 	}
 	
 	
-	/**
-	 * Déplacement en ligne
-	 * @param les coordonnées de départ et d'arrivée
-	 */
+	// Déplacement en ligne
 	
 	public boolean testLigne (int depX, int depY, int finX, int finY) {
 		int dx = finX - depX;
@@ -424,10 +389,6 @@ public class Plateau {
 		return false;
 	}
 	
-	/**
-	 * Test de la direction en haut
-	 * @param les coordonnées de départ et d'arrivée
-	 */
 	public boolean testVerticaleLigneHaut (int depX, int depY, int finX, int finY) {
 		Case c;
 		for(int i = depY + 1; i < finY; i++)
@@ -441,10 +402,6 @@ public class Plateau {
 		return true;
 	}
 	
-	/** 
-	 * Test de la direction en bas
-	 * @param les coordonnées de départ et d'arrivée
-	 */
 	public boolean testVerticaleLigneBas (int depX, int depY, int finX, int finY) {
 		Case c;
 		for(int i = depY - 1; i > finY; i--)
@@ -458,10 +415,6 @@ public class Plateau {
 		return true;
 	}
 	
-	/** 
-	 * Test de la direction à droite
-	 * @param les coordonnées de départ et d'arrivée
-	 */
 	public boolean testHorizontaleLigneDroite (int depX, int depY, int finX, int finY) {
 		Case c;
 		for(int i = depX + 1; i < finX; i++)
@@ -475,10 +428,6 @@ public class Plateau {
 		return true;
 	}
 	
-	/** 
-	 * Test de la direction à gauche
-	 * @param les coordonnées de départ et d'arrivée
-	 */
 	public boolean testHorizontaleLigneGauche (int depX, int depY, int finX, int finY) {
 		Case c;
 		for(int i = depX - 1; i > finX; i--)
@@ -493,10 +442,7 @@ public class Plateau {
 	}
 	
 	
-	/**
-	 * Affichage du jeu
-	 * @param tours le nombre de tours
-	 */
+	// Affichage
 	public void afficher( int tours){
 		System.out.println("\nTours " + tours + " :\n");
         for (int j = 7; j >=0; j--){
@@ -516,10 +462,7 @@ public class Plateau {
         System.out.println(" ");
     }
 	
-	/**
-	 * Getteur de piece
-	 * @param la position de la pièce
-	 */
+	// Getteur de piece
 	public Piece getPiece (int x, int y) {
 		return this.plateau[x][y].getPiece();
 	}
@@ -528,10 +471,7 @@ public class Plateau {
 		return this.plateau[x][y];
 	}
 	
-	/**
-	 * Getteur de position d'une piece
-	 * @param piece la pièce
-	 */
+	// Getteur de pos d'une piece
 	public Point getPosPiece (Piece piece) {
 		for( int i = 0 ; i < 8 ; i++) 
 		{
@@ -546,18 +486,11 @@ public class Plateau {
 		return null;
 	}
 	
-	/**
-	 * Dépalcement d'une pièce
-	 * @param c la case de départ; dest la case d'arrivée
 	public void movePiece (Case c, Case dest) {
 		dest.changePiece(c.getPiece());
 		c.changePiece(null);
 	}
 	
-	/**
-	 * Détection du roi
-	 * @param couleur la couleur du roi
-	 */
 	public Point findKing(int couleur) {
 		
 		for( int i = 0 ; i < 8 ; i++) 
@@ -575,10 +508,6 @@ public class Plateau {
 		return null;
 	}
 	
-	/**
-	 * test si le roi est en situation d'échec
-	 * @param couleur la couleur du roi
-	 */
 	public boolean isEchec(int couleur) {
 		Point point = this.findKing(couleur);
 		
