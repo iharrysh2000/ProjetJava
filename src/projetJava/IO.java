@@ -2,6 +2,9 @@ package projetJava;
 
 import java.util.Scanner;
 
+/**
+ * Classe Interface utilisateur entrée-sortie
+ */
 public class IO {
 		
 		private Undo undo;
@@ -13,6 +16,10 @@ public class IO {
 		private int x_cible;		// ** coordonnées cible x ** //
 		private int y_cible;		// ** coordonnées cible y ** //
 		
+		/**
+		 * Contructeur de l'Interface
+		 * @param undo
+		 */
 		public IO (Undo undo) {
 			this.undo = undo;
 			this.sc = new Scanner(System.in);
@@ -23,10 +30,11 @@ public class IO {
 			this.y_cible = -1;
 		}
 		
-		/*  Gère entré sortie
-		 * 	while : - Test si les coordonnée sont dans la map
-		 * 			- Test si la piece au coord de depart est de la bonne couleur (-1 si ya pas de piece)
-		 * 			- Test si la piece peux bouger
+		/**  Gestion entrée-sortie
+		 *  Dans la boucle while :
+		 *  Test si les coordonnée sont dans la map
+		 *  Test si la piece au coord de depart est de la bonne couleur (-1 si ya pas de piece)
+		 *  Test si la piece peux bouger
 		 */
 		public boolean entryPiece (Plateau plateau, int couleur, int tours)
 		{
@@ -91,6 +99,10 @@ public class IO {
 		    return true;
 		}
 		
+		/**
+		 * Rajouter un moment du jeu à pile
+		 * @param
+		 */
 		public void empile (Point point_depart, Point point_cible, Piece piece_depart, Piece piece_cible) {
 			this.undo.enregistrer_coords(point_depart, point_cible);
 			this.undo.enregistrer_piece(piece_depart, piece_cible);
@@ -105,8 +117,8 @@ public class IO {
 		}
 		
 		
-		/* Gère la promotion des pion
-		 * 
+		/**
+		 * Gestion de la promotion des pions
 		 */
 		public void promotion (Case dest) {
 			
@@ -135,8 +147,8 @@ public class IO {
 		}
 		
 		
-		/* Test si le joueur veux arrêter la partie
-		 * 
+		/**
+		 * Test si le joueur veux arrêter la partie 
 		 */
 		public boolean quit (String str) {
 			if(str.equals("quit") || str.equals("q"))
