@@ -3,15 +3,9 @@ package projetJava;
 public class Pion extends Piece {
 	
 	private final String nom = "P";
-	private boolean move;
 
 	public Pion (int couleur) {
 		super(couleur);
-		this.move = false;
-	}
-	
-	public boolean getMove () {
-		return this.move;
 	}
 	
 	@Override
@@ -28,11 +22,11 @@ public class Pion extends Piece {
 		{
 			if( dx == 0 )
 			{
-				if (this.move && dy == 1)
+				if (this.getMove() && dy == 1)
 				{
 					return true;
 				}
-				else if(!this.move && (dy == 1 || dy == 2) )
+				else if(!this.getMove() && (dy == 1 || dy == 2) )
 				{
 					return true;
 				}
@@ -48,11 +42,11 @@ public class Pion extends Piece {
 		{
 			if( dx == 0 )
 			{
-				if (this.move && dy == -1)
+				if (this.getMove() && dy == -1)
 				{
 					return true;
 				}
-				else if( !this.move && (dy == -1 || dy == -2) )
+				else if( !this.getMove() && (dy == -1 || dy == -2) )
 				{
 					return true;
 				}

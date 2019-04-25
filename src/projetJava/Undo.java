@@ -61,6 +61,11 @@ class Undo {
     	this.pile_piece_cible.push(piece);
     }
     
+    public void enregistrer_piece(Piece piece_depart, Piece piece_cible) {
+    	this.pile_piece_depart.push(piece_depart);
+    	this.pile_piece_cible.push(piece_cible);
+    }
+    
     /**
      * Depile les coordonnées de départ
      * @return coordonnées de départ

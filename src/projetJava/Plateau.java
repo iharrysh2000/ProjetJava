@@ -125,6 +125,8 @@ public class Plateau {
 				// Test si la case destination n'a pas de piece
 				if( dest.getPiece() == null )
 				{
+					if(!c.getPiece().getMove())
+						c.getPiece().changeMove();
 					this.movePiece(c, dest);
 					bouge = true;
 				}
@@ -138,6 +140,8 @@ public class Plateau {
 				{
 					if( dest.getPiece() != null && c.getPiece().getCoul() != dest.getPiece().getCoul() )
 					{
+						if(!c.getPiece().getMove())
+							c.getPiece().changeMove();
 						this.movePiece(c, dest);
 						bouge = true;
 					}
@@ -149,6 +153,8 @@ public class Plateau {
 				{
 					if( dest.getPiece() != null && c.getPiece().getCoul() != dest.getPiece().getCoul() )
 					{
+						if(!c.getPiece().getMove())
+							c.getPiece().changeMove();
 						this.movePiece(c, dest);
 						bouge = true;
 					}

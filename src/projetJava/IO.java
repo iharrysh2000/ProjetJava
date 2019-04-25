@@ -38,20 +38,28 @@ public class IO {
 		        System.out.println("\nVeuillez saisir les coordonnées :");
 		        String str = this.sc.nextLine();
 		        if( this.quit(str) ) return false;
-		        if( str.equals("undo") )
+		        
+		        if(str.charAt(0) == 'u')
 		        {
-		        	
-		        	if( !this.undo.getPile_piece_depart().empty() )
-		        	{
-		        		piece_depart = this.undo.depile_piece_depart();
-		        		piece_cible = this.undo.depile_piece_cible();
-		        		
-		        		Point point_depart = this.undo.depile_point_depart();
-		    		    Point point_cible = this.undo.depile_point_cible();
-		    		    
-		    		    plateau.getCase(point_depart.getX(), point_depart.getY()).changePiece(piece_depart);
-		    		    plateau.getCase(point_cible.getX(), point_cible.getY()).changePiece(piece_cible);
-		    		    tours--;
+		        	while( str.charAt(0) == 'u' )
+				    {
+		        		System.out.println("\nPress q to quit undo mode.");
+				        if( !this.undo.getPile_piece_depart().empty() )
+				        {
+				        	piece_depart = this.undo.depile_piece_depart();
+				        	piece_cible = this.undo.depile_piece_cible();
+				        		
+				        	Point point_depart = this.undo.depile_point_depart();
+				    		Point point_cible = this.undo.depile_point_cible();
+				    		    
+				    		plateau.getCase(point_depart.getX(), point_depart.getY()).changePiece(piece_depart);
+				    		plateau.getCase(point_cible.getX(), point_cible.getY()).changePiece(piece_cible);
+				    		tours--;
+				    		plateau.afficher(tours);
+				        }
+				        if( this.quit(str) )
+				        	return true;
+				        str = this.sc.nextLine();
 		        	}
 		        	return true;
 		        }
@@ -85,8 +93,7 @@ public class IO {
 		
 		public void empile (Point point_depart, Point point_cible, Piece piece_depart, Piece piece_cible) {
 			this.undo.enregistrer_coords(point_depart, point_cible);
-			this.undo.enregistrer_piece_cible(piece_cible);
-			this.undo.enregistrer_piece_depart(piece_depart);
+			this.undo.enregistrer_piece(piece_depart, piece_cible);
 		}
 		
 		/** Getteur du scanner pour le fermer
