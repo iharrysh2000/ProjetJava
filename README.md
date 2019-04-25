@@ -25,10 +25,10 @@ Le jeu est sous forme ascii.Après compilation et execution il faut décider si 
 
 ## 1. Présentation général des classes
 ### 1.0 Gestion des entrées du clavier
-Les entrées sorties sont gérées par la classe IO qui attend les données entrées par l'utilisateur.Si par inadvertance l'utilisateur entre des coordonnées qui dépasse le cadre du jeu ou qu'il choisi une case ou il y a pas de pièce alors il doit reécrire des coordonnées jusqu'à que ses coordonnées soient correcte.
+Les entrées sorties sont gérées par la classe IO qui attend les données entrées par l'utilisateur.Si par inadvertance l'utilisateur entre des coordonnées qui dépassent le cadre du jeu ou qu'il choisi une case ou il y a pas de pièce alors il doit reécrire de nouvelles coordonnées jusqu'à que ses coordonnées soient correcte.
 
 ### 1.1 Hiérachie des classes
-Les classes Fou,Roi,Reine,Cavalier,Tour et Pion hérite de la classe abstraite Pion. En effet ces classes ont en commun les déplacements mais chaque Pièces ont un déplacements particulier, il faut donc les redéfinir.
+Les classes Fou,Roi,Reine,Cavalier,Tour et Pion hérite de la classe abstraite Pion. En effet ces classes ont en commun les déplacements mais chaque Pièces ont un déplacements particulier, il faut donc les redéfinir pour chaque classe.
 
 ### 1.2 Structure de données du plateau
 Le plateau est une matrice 2 * 2 crée dans la classe Plateau.Elle contient des cases de types classe Case et chaque Case contient une couleur et une Piece. Si la case de contient rien alors cette case contient vide.
