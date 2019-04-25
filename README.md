@@ -1,30 +1,46 @@
 # PROJET CONCEPTION ET PROGRAMMATION ORIENTÉE-OBJET
 
-Réalisé par BOUTON Nicolas, DEDARALLY Taariq et TRINH Gia Tâm
+@Réalisé par BOUTON Nicolas, DEDARALLY Taariq et TRINH Gia Tâm
 
-Le projet consiste à créer un jeu d'échec en JAVA.
+## 0. Introduction
 
-# Manuel utilisateur
+L'objectif du projet consiste à créer un jeu d'échec en JAVA.
 
-Le joueur humain commence en 1er.
+## 1. Manuel utilisateur
+### 1.0 Contenu du projet
+Le projet contients:
 
-Pour faire avancer une pièce, il suffit d'indiquer la position actuelle de la pièce et la position d'arrivée pour la faire avancer. <br />
-Attention, la pièce n'avance que si le jeton respecte toutes les conditions de mouvements liées à elle.
- 
-Exemple : si mon pion est à la position a2 et que je veux le déplacer en a3, on doit taper "a2a3".
+-> Un Makefile pour compiler le programme (make pour compiler et make run pour executer le main)
 
-La partie se termine quand ?????????. <br />
-Bonne chance !
+-> Le code sources contenant les .java et le Main (le code principal)
+
+-> La sortie contenant les .class
+
+-> La documentation (dossier doc) ou se trouve la Javadoc, la description de l'ensemble des classes
+
+### 1.1 Instructions 
+Le jeu est sous forme ascii.Après compilation et execution il faut décider si J1 et J2 seront des Joueurs ou des Ordinateur (respective H pour être joueur humain et O pour laisser l'ordinateur jouer).Et ensuite pour jouer il faut inscrire les coordonnées pour faire bouger les pièces du jeu. Pour quitter le jeu entrez "quit" et pour faire un retour en arrière entrez "undo".
 
 # Manuel technique
 
-La classe Pièce est décomposée en plusieurs sous-classes représentant chacunes un type de pièce et contiennent tous une méthode de déplacement spécifique. <br />
-Elles sont liées à un joueur en fonction de leur couleur.
+## 1. Présentations général des classes
+### 1.0 Gestion des entrées du clavier
+Les entrées sorties sont gérées par la classe IO qui attend les données entrées par l'utilisateur.Si par inadvertance l'utilisateur entre des coordonnées qui dépasse le cadre du jeu ou qu'il choisi une case ou il y a pas de pièce alors il doit reécrire des coordonnées jusqu'à que ses coordonnées soient correcte.
 
-Chaque jeton étant placé sur une case, la classe Case est nécessaire pour les associer.<br />
-Ces cases composent le terrain de jeu à travers la classe Plateau qui initialise la poition de départ de chaque 
-pièce et verifie si les déplacements sont valides pour les effectuer afin d'afficher le jeu 
-(attention, il ne s'agit pas de Xboard mais simplement de la combinaison de Systeme.out.print() pour simuler l'apparence du plateau et des pièces).
+### 1.1 Hiérachie des classes
+Les classes Fou,Roi,Reine,Cavalier,Tour et Pion hérite de la classe abstraite Pion. En effet ces classes ont en commun les déplacements mais chaque Pièces ont un déplacements particulier, il faut donc les redéfinir.
 
-La classe IO est présente pour pouvoir prendre en entrée les commandes du joueur. <br />
-Et justement, la classe Joueur vient déterminer qui joue. Un humain et un ordinateur ? 2 ordinateurs ou 2 humains ? L'ordinateur fera que des actions au hasard et l'humain jouera toujours en 1er.
+### 1.2 Structure de données du plateau
+Le plateau est une matrice 2 * 2 crée dans la classe Plateau.Elle contient des cases de types classe Case et chaque Case contient une couleur et une Piece. Si la case de contient rien alors cette case contient vide.
+
+### 1.3 Ordinateur
+On a deux types de joueurs possible, soit c'est l'utilisateur qui joue soit l'ordinateur. Le jeu de l'ordinateur consiste à placer déplacer des pièces du jeu de manière arbitraire.
+
+### 1.4 Gestion du retour en arrière
+Pour la gestion du retour en arrière on utilise le principe de pile, en sauvegardant les pièces déplacées et leurs coordonnées et en retirant de la pile les éléments sauvegarder en dernier. Le principe du retour arrière est géré dans la classe Undo.
+
+### 1.4 Fin du jeu
+La fin du jeu est marquer lorsque une des deux équipes est en situation d'échec et mat.
+
+### 1.5 Gestion des erreurs
+Certaines erreurs peuvent mener à un crash du jeu, par exemple si l'utilisateur oublie une lettre lors de la saisie des coordonnées.
