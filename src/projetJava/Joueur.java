@@ -44,10 +44,16 @@ public class Joueur {
 		}
 	}
 	
+	/**
+	 * Retourne le type du joueur 1
+	 */
 	public String getJ1 () {
 		return this.j1;
 	}
 	
+	/**
+	 * Retourne le type du joueur 2
+	 */
 	public String getJ2 () {
 		return this.j2;
 	}
