@@ -36,7 +36,7 @@ public class Joueur {
 			}
 		}
 	}
-	
+
 	public String getJ1 () {
 		return this.j1;
 	}

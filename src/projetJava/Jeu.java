@@ -24,7 +24,7 @@ public class Jeu {
 	public void jouer () {
 		boolean noQuit = true;
 		int a_qui_de_jouer = 1;
-        while( noQuit )
+        while( noQuit && this.isMat(a_qui_de_jouer) )
         {
         	a_qui_de_jouer = a_qui_de_jouer^ 1;
         	if(a_qui_de_jouer == 0)
@@ -72,5 +72,55 @@ public class Jeu {
         		this.plateau.afficher(this.tours);
         	}
         }
+	}
+	
+	public boolean isMat(int couleur) {
+		
+	final Point point_init = new Point(this.plateau.findKing(couleur).getX(),this.plateau.findKing(couleur).getY());
+	return checkisMatHV(point_init,couleur);
+	}
+	
+	public boolean checkisMatHV(final Point point_init, int couleur) {
+		Point point = new Point(point_init.getX(),point_init.getY());
+		if(!(this.plateau.checkMove_isEchec(point, couleur))) {
+			point.setX(point_init.getX() + 1); 
+			point.setY(point_init.getY()); 
+			if(!(this.plateau.checkMove_isEchec(point, couleur))) {
+				point.setX(point_init.getX());
+				point.setY(point_init.getY() + 1);
+				if(!(this.plateau.checkMove_isEchec(point, couleur))) {
+					point.setX(point_init.getX() -1 );
+					point.setY(point_init.getY()); 
+					if(!(this.plateau.checkMove_isEchec(point, couleur))) {
+						point.setX(point_init.getX()-1);
+						point.setY(point_init.getY());
+						if(!(this.plateau.checkMove_isEchec(point, couleur))) {
+							return true;
+						}
+					}
+				}
+			}
+		}
+		return false;
+	}
+	
+	public boolean checkisMatDiagonal(final Point point_init,int couleur) {
+		Point point = new Point(point_init.getX()+1,point_init.getY()+1);
+		if(this.plateau.checkMove_isEchec(point, couleur)) {
+			point.setX(point_init.getX()-1);
+			point.setY(point_init.getY()+1);
+			if(this.plateau.checkMove_isEchec(point, couleur)) {
+				point.setX(point_init.getX()+1);
+				point.setY(point_init.getY()-1);
+				if(this.plateau.checkMove_isEchec(point, couleur)) {
+					point.setX(point_init.getX()-1);
+					point.setY(point_init.getY()-1);
+					if(this.plateau.checkMove_isEchec(point, couleur)) {
+						return true;
+					}
+				}
+			}
+		}
+		return false;
 	}
 }
