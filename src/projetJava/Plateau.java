@@ -17,7 +17,7 @@ public class Plateau {
 	            {
 	            	if( j == 1 )
 	            	{
-	            		c = new Case(null, (i+j)%2);
+	            		c = new Case(new Pion(coul), (i+j)%2);
 	                	this.plateau[i][j] = c;
 	            	}
 	            	else if( i == 0 || i == 7)
@@ -61,7 +61,7 @@ public class Plateau {
 	            {
 	            	if( j == 6 )
 	            	{
-	            		c = new Case(null, (i+j)%2);
+	            		c = new Case(new Pion(coul), (i+j)%2);
 	                	this.plateau[i][j] = c;
 	            	}
 	            	else if( i == 0 || i == 7)
@@ -484,7 +484,7 @@ public class Plateau {
 	
 	public boolean isEchec(int couleur) {
 		Point point = new Point(this.findKing(couleur).getX(),this.findKing(couleur).getY());
-		System.out.println(this.haveDiagonal(point,couleur ^ 1));
+		System.out.println(this.havePion(point,couleur ^ 1));
 		return true;
 	}
 	
@@ -614,10 +614,41 @@ public class Plateau {
 	}
 	
 	public boolean haveCavalier() {
-		return true;
+		return false;
 	}
 	
-	public boolean havePion() {
-		return true;
+	public boolean havePion(final Point point,int couleur) {
+		if(this.inMap(point.getX(), point.getY(), point.getX() + 1 , point.getY() + 1 )) {
+			if(this.plateau[point.getX()+1][point.getY()+1].getPiece() != null) {
+				if(this.plateau[point.getX()+1][point.getY()+1].getPiece().toString().equals("P" + couleur)){
+					return true;
+				}
+			}
+		}
+		
+		if(this.inMap(point.getX(), point.getY(), point.getX() - 1, point.getY() + 1)) {
+			if(this.plateau[point.getX()-1][point.getY()+1].getPiece() != null) {
+				if(this.plateau[point.getX()-1][point.getY()+1].getPiece().toString().equals("P" + couleur)) {
+					return true;
+				}
+			}
+		}
+		
+		if(this.inMap(point.getX(), point.getY(), point.getX() + 1, point.getY() - 1)) {
+			if(this.plateau[point.getX()+1][point.getY()-1].getPiece() != null) {
+				if(this.plateau[point.getX()+1][point.getY()-1].getPiece().toString().equals("P" + couleur)) {
+					return true;
+				}
+			}
+		}
+
+		if(this.inMap(point.getX(), point.getY(), point.getX() - 1, point.getY() - 1)) {
+			if(this.plateau[point.getX()-1][point.getY()-1].getPiece() != null) {
+				if(this.plateau[point.getX()-1][point.getY()-1].getPiece().toString().equals("P" + couleur)) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 }
