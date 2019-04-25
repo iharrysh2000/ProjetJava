@@ -27,31 +27,34 @@ public class Jeu {
         while( noQuit )
         {
         	couleur = couleur ^ 1;
-        	this.plateau.isEchec(couleur);
-        	if(this.tours%2 == 0 )
+        	if(couleur == 0)
         	{
         		if( this.joueur.getJ1().equals("H") )
         		{
-        			noQuit = this.io.entryPiece (this.plateau, this.tours%2);
+        			noQuit = this.io.entryPiece (this.plateau, couleur);
+        			this.plateau.isEchec(couleur);
         		}
         		else
         		{
         			// ia a faire
         			noQuit = false;
         			System.out.println( this.joueur.getJ1() );
+        			this.plateau.isEchec(couleur);
         		}
         	}
         	else
         	{
         		if( this.joueur.getJ2().equals("H") )
         		{
-        			noQuit = this.io.entryPiece (this.plateau, this.tours%2);
+        			noQuit = this.io.entryPiece (this.plateau, couleur);
+        			this.plateau.isEchec(couleur);
         		}
         		else
         		{
         			// ia a faire
         			noQuit = false;
         			System.out.println( this.joueur.getJ2() );
+        			this.plateau.isEchec(couleur);
         		}
         	}
         	
