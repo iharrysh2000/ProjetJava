@@ -15,14 +15,19 @@ public class Pion extends Piece {
 		super(couleur);
 	}
 	
+	/**
+	 * Retourne la chaine de caractères composé du nom et de la couleur du pion
+	 * @return le nom et la couleur du pion
+	 */
 	@Override
 	public String toString () {
 		return this.nom + this.getCoul();
 	}
 	
 	/**
-	 * Retourne la chaine de caractères composé du nom et de la couleur du pion
-	 * @return le nom et la couleur du pion
+	 * Déplacement du pion
+	 * @param les coordonnées de départ et d'arrivées
+	 * @return boolean Retourne vrai si le déplacement est valide ou faux si le déplacement n'est pas valide
 	 */
 	@Override
 	public boolean movePiece(int depX, int depY, int finX, int finY) {
