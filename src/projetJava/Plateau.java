@@ -588,7 +588,6 @@ public class Plateau {
 		}
 		
 		for( int x = point.getX(),y = point.getY() ; x < 8 && y > 0 ; x++,y-- ) {
-			System.out.println(x + " " + y);
 			if(this.plateau[x][y].getPiece() != null) {
 				if(this.plateau[x][y].getPiece().toString().equals("F" + couleur)
 						|| this.plateau[x][y].getPiece().toString().equals("D" + couleur)){

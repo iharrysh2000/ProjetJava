@@ -49,7 +49,10 @@ public class IO {
 		    } while ( !plateau.inMap(this.x_depart, this.y_depart, this.x_cible, this.y_cible)
 		    			|| coul_piece_depart != couleur
 		    			|| !plateau.movePiece(this.x_depart, this.y_depart, this.x_cible, this.y_cible) );
-		    
+        	
+			if(plateau.isEchec(couleur)){
+				System.out.println("Echec !");
+			}
 		    return true;
 		}
 		

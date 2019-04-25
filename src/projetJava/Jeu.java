@@ -31,30 +31,38 @@ public class Jeu {
         	{
         		if( this.joueur.getJ1().equals("H") )
         		{
+        			if(this.plateau.isEchec(a_qui_de_jouer)){
+        				System.out.println("Echec !");
+    				}
         			noQuit = this.io.entryPiece (this.plateau, a_qui_de_jouer);
-        			this.plateau.isEchec(a_qui_de_jouer);
         		}
         		else
         		{
         			// ia a faire
+        			if(this.plateau.isEchec(a_qui_de_jouer)){
+        				System.out.println("Echec !");
+    				}
         			noQuit = false;
         			System.out.println( this.joueur.getJ1() );
-        			this.plateau.isEchec(a_qui_de_jouer);
         		}
         	}
         	else
         	{
         		if( this.joueur.getJ2().equals("H") )
         		{
+        			if(this.plateau.isEchec(a_qui_de_jouer)){
+        				System.out.println("Echec !");
+    				}
         			noQuit = this.io.entryPiece (this.plateau,a_qui_de_jouer);
-        			this.plateau.isEchec(a_qui_de_jouer);
         		}
         		else
         		{
         			// ia a faire
+        			if(this.plateau.isEchec(a_qui_de_jouer)){
+        				System.out.println("Echec !");
+    				}
         			noQuit = false;
         			System.out.println( this.joueur.getJ2() );
-        			this.plateau.isEchec(a_qui_de_jouer);
         		}
         	}
         	
