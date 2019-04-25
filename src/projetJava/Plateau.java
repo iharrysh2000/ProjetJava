@@ -17,7 +17,7 @@ public class Plateau {
 	            {
 	            	if( j == 1 )
 	            	{
-	            		c = new Case(null, (i+j)%2);
+	            		c = new Case(new Pion (coul), (i+j)%2);
 	                	this.plateau[i][j] = c;
 	            	}
 	            	else if( i == 0 || i == 7)
@@ -61,7 +61,7 @@ public class Plateau {
 	            {
 	            	if( j == 6 )
 	            	{
-	            		c = new Case(null, (i+j)%2);
+	            		c = new Case(new Pion (coul), (i+j)%2);
 	                	this.plateau[i][j] = c;
 	            	}
 	            	else if( i == 0 || i == 7)
@@ -481,143 +481,78 @@ public class Plateau {
 		c.changePiece(null);
 	}
 	
-	
-	public boolean isEchec(int couleur) {
-		Point point = new Point(this.findKing(couleur).getX(),this.findKing(couleur).getY());
-		System.out.println(this.haveDiagonal(point,couleur ^ 1));
-		return true;
-	}
-	
 	public Point findKing(int couleur) {
+		
 		for( int i = 0 ; i < 8 ; i++) 
 		{
 			for( int j = 0 ; j < 8 ; j++) 
 			{
-				if(this.plateau[i][j].getPiece() != null)
+				if(this.plateau[i][j].getPiece().getClass() == Roi.class
+					&& this.plateau[i][j].getPiece().getCoul() == couleur)
 				{
-					if(this.plateau[i][j].getPiece().toString().equals("R" + couleur)) {
-						return new Point(i,j);
-					}
-				}
-			}
-		}
-		return new Point(-1,-1); // Afficher erreurs roi non trouvé
-	}
-	
-	public boolean haveHV(final Point point,int couleur) {
-		
-		for( int x = point.getX() ; x < 8 ; x++) {
-			if(this.plateau[x][point.getY()].getPiece() != null) {
-				
-				if(this.plateau[x][point.getY()].getPiece().toString().equals("T" + couleur)
-						|| this.plateau[x][point.getY()].getPiece().toString().equals("D" + couleur)){
-					return true;
-				}
-				if(this.plateau[x][point.getY()].getPiece().getCoul() != couleur
-						&& x != point.getX()) {
-					break;
-				}
-			}
-		}
-		for( int x = point.getX() ; x > 0 ; x--) {
-			if(this.plateau[x][point.getY()].getPiece() != null) {
-				if(this.plateau[x][point.getY()].getPiece().toString().equals("T" + couleur)
-						|| this.plateau[x][point.getY()].getPiece().toString().equals("D" + couleur)){
-					return true;
-				}
-				if(this.plateau[x][point.getY()].getPiece().getCoul() != couleur
-						&& x != point.getX()) {
-					break;
-				}
-			}
-		}
-		for( int y = point.getY() ; y < 8 ; y++) {
-			if(this.plateau[point.getX()][y].getPiece() != null) {
-				if(this.plateau[point.getX()][y].getPiece().toString().equals("T" + couleur)
-						|| this.plateau[point.getX()][y].getPiece().toString().equals("D" + couleur)){
-					return true;
-				}
-				if(this.plateau[point.getX()][y].getPiece().getCoul() != couleur
-						&& y != point.getY()) {
-					break;
-				}
-			}
-		}
-		for( int y = point.getY() ; y > 0; y--) {
-			if(this.plateau[point.getX()][y].getPiece() != null) {
-				if(this.plateau[point.getX()][y].getPiece().toString().equals("T" + couleur)
-						|| this.plateau[point.getX()][y].getPiece().toString().equals("D" + couleur)){
-					return true;
-				}
-				if(this.plateau[point.getX()][y].getPiece().getCoul() != couleur
-						&& y != point.getY()) {
-					break;
-				}
-			}
-		}
-		return false;
-	}
-	
-	public boolean haveDiagonal(final Point point,int couleur) {
-		
-		for( int x = point.getX(),y = point.getY() ; x < 8 && y < 8 ; x++,y++) {
-			if(this.plateau[x][y].getPiece() != null) {
-				if(this.plateau[x][y].getPiece().toString().equals("F" + couleur)
-						|| this.plateau[x][y].getPiece().toString().equals("D" + couleur)){
-					return true;
-				}
-				if(this.plateau[x][y].getPiece().getCoul() != couleur
-						&& (x!=point.getX() && y != point.getY())) {
-					break;
-				}
-			}
-		}
-		for( int x = point.getX(),y = point.getY() ; x > 0 && y < 8 ; x--,y++) {
-			if(this.plateau[x][y].getPiece() != null) {
-				if(this.plateau[x][y].getPiece().toString().equals("F" + couleur)
-						|| this.plateau[x][y].getPiece().toString().equals("D" + couleur)){
-					return true;
-				}
-				if(this.plateau[x][y].getPiece().getCoul() != couleur
-						&& (x!=point.getX() && y != point.getY())) {
-					break;
+					return new Point(i,j);
 				}
 			}
 		}
 		
-		for( int x = point.getX(),y = point.getY() ; x < 8 && y > 0 ; x++,y-- ) {
-			System.out.println(x + " " + y);
-			if(this.plateau[x][y].getPiece() != null) {
-				if(this.plateau[x][y].getPiece().toString().equals("F" + couleur)
-						|| this.plateau[x][y].getPiece().toString().equals("D" + couleur)){
-					return true;
-				}
-				if(this.plateau[x][y].getPiece().getCoul() != couleur
-						&& (x!=point.getX() && y != point.getY())) {
-					break;
-				}
-			}
-		}
-		for( int x = point.getX(),y = point.getY() ; x > 0 && y > 0 ; x--,y--) {
-			if(this.plateau[x][y].getPiece() != null) {
-				if(this.plateau[x][y].getPiece().toString().equals("F" + couleur)
-						|| this.plateau[x][y].getPiece().toString().equals("D" + couleur)){
-					return true;
-				}
-				if(this.plateau[x][y].getPiece().getCoul() != couleur
-						&& (x!=point.getX() && y != point.getY())) {
-					break;
-				}
-			}
-		}
-		return false;
+		return null;
 	}
 	
-	public boolean haveCavalier() {
+	public boolean isEchec(int couleur) {
+		Point point = this.findKing(couleur);
+		
+		if(point == null)
+		{
+			System.out.println("Problème");
+			return true;
+		}
+		else
+		{
+			// Cas Pion
+			
+			// Cas Cavalier
+			
+			// Autre cas
+		}
 		return true;
 	}
 	
-	public boolean havePion() {
+	public boolean echecPion (Point point, int couleur) {
+		
+		if( couleur == 0)
+		{
+			
+		}
+		else
+		{
+			
+		}
+		return true;
+	}
+	
+	public boolean echecCavalier (Point point, int couleur) {
+		
+		if( couleur == 0)
+		{
+			
+		}
+		else
+		{
+			
+		}
+		return true;
+	}
+	
+	public boolean echecAutre (Point point, int couleur) {
+		
+		if( couleur == 0)
+		{
+			
+		}
+		else
+		{
+			
+		}
 		return true;
 	}
 }

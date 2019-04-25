@@ -37,7 +37,7 @@ public class IO {
 		        this.x_depart = str.charAt(0) - 'a';
 		        this.y_depart = str.charAt(1) - '1';
 		        this.x_cible = str.charAt(2) - 'a';
-		        this. y_cible = str.charAt(3) - '1';
+		        this.y_cible = str.charAt(3) - '1';
 		        
 		        coul_piece_depart = -1;
 		        
@@ -62,7 +62,7 @@ public class IO {
 		}
 		
 		
-		/* Gère la promotion des pions
+		/* Gère la promotion des pion
 		 * 
 		 */
 		public void promotion (Case dest) {

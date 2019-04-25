@@ -23,11 +23,9 @@ public class Jeu {
 	 */
 	public void jouer () {
 		boolean noQuit = true;
-		int couleur = 1;
+		
         while( noQuit )
         {
-        	couleur = couleur ^ 1;
-        	this.plateau.isEchec(couleur);
         	if(this.tours%2 == 0 )
         	{
         		if( this.joueur.getJ1().equals("H") )
@@ -37,8 +35,7 @@ public class Jeu {
         		else
         		{
         			// ia a faire
-        			noQuit = false;
-        			System.out.println( this.joueur.getJ1() );
+        			this.ia();
         		}
         	}
         	else
@@ -50,8 +47,7 @@ public class Jeu {
         		else
         		{
         			// ia a faire
-        			noQuit = false;
-        			System.out.println( this.joueur.getJ2() );
+        			this.ia();
         		}
         	}
         	
@@ -61,5 +57,41 @@ public class Jeu {
         		this.plateau.afficher(this.tours);
         	}
         }
+	}
+	
+	public void ia () {
+
+		int x_depart;
+		int y_depart;
+		int x_cible;
+		int y_cible;
+		
+		for(int i = 0; i < 8; i++) 
+		{
+			for(int j = 0; j < 8; j++) 
+			{
+				x_depart = i;
+				y_depart = j;
+				
+				for(int k = 0; k < 8; k++) 
+				{
+					for(int l = 0; l < 8; l++) 
+					{
+						x_cible = k;
+						y_cible = l;
+						
+						if( this.plateau.getPiece(x_depart, y_depart) != null )
+						{
+							
+							if( plateau.inMap(x_depart, y_depart, x_cible, y_cible)
+					    			&& plateau.movePiece(x_depart, y_depart, x_cible, y_cible) )
+							{
+								return;
+							}
+						}
+					}
+				}
+			}
+		}
 	}
 }

@@ -26,7 +26,7 @@ public class Joueur {
 			System.out.println("\nVeuillez choisir le type du second joueur :\n");
 			this.j2 = tmp.quiJoue();
 			
-			if ( ( j1.equals("H") || j1.equals("O") ) && ( j2.equals("H") || j2.equals("O") ) )
+			if ( ( this.j1.equals("H") || this.j1.equals("O") ) && ( this.j2.equals("H") || this.j2.equals("O") ) )
 			{
 				found = true;
 			}
@@ -34,6 +34,13 @@ public class Joueur {
 			{
 				System.out.println("ERREUR : Mauvaise commande. Veuillez taper une des 2 commandes");
 			}
+		}
+		
+		if(this.j1.equals("O") && this.j2.equals("O"))
+		{
+			System.out.println("ATTENTION : BOUCLE INFINI");
+			System.out.println("ATTENTION : BOUCLE INFINI");
+			System.out.println("ATTENTION : BOUCLE INFINI");
 		}
 	}
 	
