@@ -1,5 +1,8 @@
 package projetJava;
 
+/**
+ * Classe Jeu représentant le jeu
+ */
 public class Jeu {
 	
 	private Undo undo;
@@ -8,6 +11,9 @@ public class Jeu {
 	private Joueur joueur;
 	private int tours;
 	
+	/**
+	 * Constructeur du jeu
+	 */
 	public Jeu () {
 		this.undo = new Undo();
 		this.plateau = new Plateau();
@@ -21,7 +27,7 @@ public class Jeu {
 	
 	/**
 	 * Lecture du clavier
-	 * @param plateau 	plateau du jeu pour effectuer les modifications
+	 * @param plateau plateau du jeu pour effectuer les modifications
 	 */
 	public void jouer () {
 		boolean noQuit = true;
@@ -65,6 +71,10 @@ public class Jeu {
         }
 	}
 	
+	/**
+	 * Retourne 
+	 * @param couleur
+	 */
 	public boolean ia (int couleur) {
 
 		int x_depart;
