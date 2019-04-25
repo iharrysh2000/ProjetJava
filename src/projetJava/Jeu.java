@@ -77,31 +77,31 @@ public class Jeu {
 	public boolean isMat(int couleur) {
 		
 	final Point point_init = new Point(this.plateau.findKing(couleur).getX(),this.plateau.findKing(couleur).getY());
-	return checkisMatHV(point_init,couleur);
+	return this.checkisMatHV(point_init,couleur) || this.checkisMatDiagonal(point_init,couleur);
 	}
 	
 	public boolean checkisMatHV(final Point point_init, int couleur) {
 		Point point = new Point(point_init.getX(),point_init.getY());
-		if(!(this.plateau.checkMove_isEchec(point, couleur))) {
+		if(this.plateau.checkMove_isEchec(point, couleur)) {
 			point.setX(point_init.getX() + 1); 
 			point.setY(point_init.getY()); 
-			if(!(this.plateau.checkMove_isEchec(point, couleur))) {
+			if(this.plateau.checkMove_isEchec(point, couleur)) {
 				point.setX(point_init.getX());
 				point.setY(point_init.getY() + 1);
-				if(!(this.plateau.checkMove_isEchec(point, couleur))) {
-					point.setX(point_init.getX() -1 );
+				if(this.plateau.checkMove_isEchec(point, couleur)) {
+					point.setX(point_init.getX() - 1);
 					point.setY(point_init.getY()); 
-					if(!(this.plateau.checkMove_isEchec(point, couleur))) {
-						point.setX(point_init.getX()-1);
-						point.setY(point_init.getY());
-						if(!(this.plateau.checkMove_isEchec(point, couleur))) {
-							return true;
+					if(this.plateau.checkMove_isEchec(point, couleur)) {
+						point.setX(point_init.getX());
+						point.setY(point_init.getY()-1);
+						if(this.plateau.checkMove_isEchec(point, couleur)) {
+							return false;
 						}
 					}
 				}
 			}
 		}
-		return false;
+		return true;
 	}
 	
 	public boolean checkisMatDiagonal(final Point point_init,int couleur) {
@@ -116,11 +116,11 @@ public class Jeu {
 					point.setX(point_init.getX()-1);
 					point.setY(point_init.getY()-1);
 					if(this.plateau.checkMove_isEchec(point, couleur)) {
-						return true;
+						return false;
 					}
 				}
 			}
 		}
-		return false;
+		return true;
 	}
 }

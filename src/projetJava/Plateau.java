@@ -494,13 +494,14 @@ public class Plateau {
 		
 		if(!(this.inMap(point.getX(), point.getY(), point.getX(), point.getY()))) {
 			System.out.println("void out map");
-			return false;
+			return true;
 		}
-		if(plateau[point.getX()][point.getY()].getPiece() == null
-				|| !(plateau[point.getX()][point.getY()].getPiece().toString().equals("R" + couleur))) {
-			System.out.println("not piece or void");
-			return false;
+		if(plateau[point.getX()][point.getY()].getPiece() != null) {
+			if(!(plateau[point.getX()][point.getY()].getPiece().toString().equals("R" + couleur))){
+				System.out.println("not piece or void");
+				return true;
 			}
+		}
 		
 		System.out.println("is valide ?");
 		return this.havePion(point,couleur ^ 1) 
