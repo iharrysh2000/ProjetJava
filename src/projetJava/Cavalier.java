@@ -29,10 +29,10 @@ public class Cavalier extends Piece {
 	/**
 	 * Déplacement du cavalier
 	 * 
-	 * @param depx l'abscisse de départ
-	 * @param depy l'ordonée de départ
+	 * @param depX l'abscisse de départ
+	 * @param depY l'ordonée de départ
 	 * @param finX l'abscisse d'arrivée
-	 * @param finy l'ordonée de d'arrivée
+	 * @param finY l'ordonée de d'arrivée
 	 * @return vrai si le déplacement est valide ou faux si le déplacement n'est pas
 	 *         valide
 	 */
